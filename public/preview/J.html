@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Maqueta J · Híbrido chat+scroll — PeopleTrust</title>
+<meta name="theme-color" content="#0b0a1a" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{--accent:#a855f7}
+  *{-webkit-tap-highlight-color:transparent}
+  html,body{background:#070612;color:#e5e3f0;min-height:100%;}
+  body{font-family:'Inter','system-ui',sans-serif;}
+  .hero-bg{background:
+    radial-gradient(45% 60% at 22% 30%, rgba(168,85,247,.22) 0%, transparent 70%),
+    radial-gradient(40% 50% at 85% 60%, rgba(34,197,94,.14) 0%, transparent 70%),
+    #070612;}
+  .glass{background:rgba(255,255,255,.04);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);}
+  .bubble{animation:rise .45s cubic-bezier(.34,1.56,.64,1) both;}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin:0 2px;animation:typ 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.18s}.typing span:nth-child(3){animation-delay:.36s}
+  @keyframes typ{0%,80%,100%{opacity:.3;transform:scale(.7)}40%{opacity:1;transform:scale(1)}}
+  .mic-on{animation:micpulse 1.4s infinite;box-shadow:0 0 0 0 rgba(168,85,247,.7)}
+  @keyframes micpulse{70%{box-shadow:0 0 0 14px rgba(168,85,247,0)}100%{box-shadow:0 0 0 0 rgba(168,85,247,0)}}
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.on{opacity:1;transform:translateY(0)}
+  .chat-scroll::-webkit-scrollbar{width:5px}
+  .chat-scroll::-webkit-scrollbar-thumb{background:rgba(168,85,247,.4);border-radius:5px}
+  .agent-card:hover{transform:translateY(-3px);transition:transform .2s ease}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="absolute top-0 left-0 right-0 z-30 px-5 sm:px-10 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="w-8 h-8 rounded-lg" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div>
+    <span class="font-semibold tracking-tight">PeopleTrust</span>
+  </div>
+  <nav class="hidden sm:flex items-center gap-1 text-sm">
+    <a class="px-3 py-1.5 rounded-lg hover:bg-white/5" href="#servicios">Servicios</a>
+    <a class="px-3 py-1.5 rounded-lg hover:bg-white/5" href="#equipo">Equipo</a>
+    <a class="px-3 py-1.5 rounded-lg hover:bg-white/5" href="#precios">Precios</a>
+    <a class="px-3 py-1.5 rounded-lg hover:bg-white/5" href="#casos">Casos</a>
+    <a class="px-3 py-1.5 rounded-lg bg-white text-slate-900 font-medium ml-2" href="https://argos.vecttore.com">Iniciar sesión</a>
+  </nav>
+</header>
+
+<!-- HERO: chat horizontal -->
+<section class="hero-bg relative min-h-[100svh] flex items-center justify-center px-4 pt-24 pb-12">
+  <div class="max-w-3xl w-full grid sm:grid-cols-[180px_1fr] gap-6 items-center">
+
+    <!-- Avatar Valentina -->
+    <div class="flex sm:block justify-center">
+      <div class="relative">
+        <div class="w-28 h-28 sm:w-44 sm:h-44 rounded-3xl grid place-items-center" style="background:linear-gradient(135deg,#22c55e,#15803d);box-shadow:0 18px 56px rgba(34,197,94,.4)">
+          <svg width="78" height="78" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="10" rx="2"/>
+            <circle cx="12" cy="5" r="2"/>
+            <path d="M12 7v4"/>
+            <line x1="8" y1="16" x2="8" y2="16"/>
+            <line x1="16" y1="16" x2="16" y2="16"/>
+          </svg>
+        </div>
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500 text-white shadow-lg">Valentina</span>
+      </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="glass rounded-3xl p-3 sm:p-4">
+      <p class="text-xs uppercase tracking-widest text-violet-300 mb-3 px-2">Hola, soy Valentina · FrontOffice</p>
+      <div id="chat" class="chat-scroll min-h-[140px] max-h-[34vh] overflow-y-auto px-2 py-2 space-y-3 mb-2">
+        <div class="bubble bg-white/5 rounded-2xl rounded-tl-md px-3.5 py-2.5 text-sm text-slate-100">
+          Decime, ¿qué necesitás? Puedo evaluar candidatos, mostrarte precios o conectarte con el equipo.
+        </div>
+      </div>
+      <div id="suggestions" class="flex flex-wrap gap-2 px-2 mb-2">
+        <button class="sug text-xs px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10" data-msg="Evaluar un candidato">→ evaluar candidato</button>
+        <button class="sug text-xs px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10" data-msg="Ver precios">→ ver precios</button>
+        <button class="sug text-xs px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10" data-msg="Demo del equipo">→ conocer agentes</button>
+      </div>
+      <form id="form" class="flex items-end gap-2 p-2">
+        <input id="input" placeholder="Escribí aquí…" class="flex-1 bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5"/>
+        <button type="button" id="micBtn" class="w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10" aria-label="Hablar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        </button>
+        <button type="submit" class="w-10 h-10 rounded-full grid place-items-center text-white" style="background:linear-gradient(135deg,#a855f7,#7c3aed)" aria-label="Enviar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-slate-500 flex flex-col items-center gap-1">
+    <span>scroll</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- CAP 1: SERVICIOS -->
+<section id="servicios" class="px-5 sm:px-10 py-20 max-w-5xl mx-auto reveal">
+  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 1 · Por qué</p>
+  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-6">Evaluación profesional,<br/>conducida por agentes IA.</h2>
+  <p class="text-slate-300 max-w-2xl">Tres dimensiones evaluadas en simultáneo (personalidad, competencias, fit laboral), revisadas por guardrails legales y clínicos, integradas en un informe único trazable.</p>
+  <div class="grid sm:grid-cols-3 gap-4 mt-10">
+    <div class="glass rounded-2xl p-5">
+      <div class="text-emerald-400 text-2xl mb-2 font-bold">7</div>
+      <div class="text-sm font-medium mb-1">dimensiones de personalidad</div>
+      <div class="text-xs text-slate-400">Big Five + autoregulación + asertividad</div>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <div class="text-emerald-400 text-2xl mb-2 font-bold">6</div>
+      <div class="text-sm font-medium mb-1">áreas laborales</div>
+      <div class="text-xs text-slate-400">Técnica, liderazgo, comunicación, +3</div>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <div class="text-emerald-400 text-2xl mb-2 font-bold">3</div>
+      <div class="text-sm font-medium mb-1">guardrails activos</div>
+      <div class="text-xs text-slate-400">Legal · clínico · seguridad técnica</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAP 2: EQUIPO -->
+<section id="equipo" class="px-5 sm:px-10 py-20 max-w-5xl mx-auto reveal">
+  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 2 · El equipo</p>
+  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-10">Seis agentes especializados.</h2>
+  <div class="grid sm:grid-cols-3 gap-4">
+    <div class="agent-card glass rounded-2xl p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#22c55e"></div><div class="font-medium">Valentina</div><div class="text-xs text-emerald-400 uppercase tracking-wider">FrontOffice</div><div class="text-xs text-slate-400 mt-1">Recepción y triaje</div></div>
+    <div class="agent-card glass rounded-2xl p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#22c55e"></div><div class="font-medium">Sigmund</div><div class="text-xs text-emerald-400 uppercase tracking-wider">Personalidad</div><div class="text-xs text-slate-400 mt-1">Entrevista en 7 dimensiones</div></div>
+    <div class="agent-card glass rounded-2xl p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#22c55e"></div><div class="font-medium">Smith</div><div class="text-xs text-emerald-400 uppercase tracking-wider">Laboral</div><div class="text-xs text-slate-400 mt-1">BEI + competencias + CV</div></div>
+    <div class="agent-card glass rounded-2xl p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#a855f7"></div><div class="font-medium">Miyagi</div><div class="text-xs text-violet-400 uppercase tracking-wider">CEO / Auditor</div><div class="text-xs text-slate-400 mt-1">Coordina y firma handoffs</div></div>
+    <div class="agent-card glass rounded-2xl p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#0ea5e9"></div><div class="font-medium">Matusalem</div><div class="text-xs text-sky-400 uppercase tracking-wider">Integrador</div><div class="text-xs text-slate-400 mt-1">Consolida informes</div></div>
+    <div class="agent-card glass rounded-2xl p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#0ea5e9"></div><div class="font-medium">Albert</div><div class="text-xs text-sky-400 uppercase tracking-wider">Derivador</div><div class="text-xs text-slate-400 mt-1">Asigna psicólogo humano</div></div>
+  </div>
+</section>
+
+<!-- CAP 3: PRECIOS -->
+<section id="precios" class="px-5 sm:px-10 py-20 max-w-5xl mx-auto reveal">
+  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 3 · Planes</p>
+  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-10">Empezá gratis. Escalá cuando quieras.</h2>
+  <div class="grid sm:grid-cols-3 gap-4">
+    <div class="glass rounded-2xl p-6"><div class="text-violet-300 text-xs mb-1 uppercase tracking-wider">Free</div><div class="text-3xl font-bold mb-3">$0<span class="text-sm font-normal text-slate-400"> siempre</span></div><ul class="text-sm text-slate-300 space-y-2"><li>· 10 evaluaciones/mes</li><li>· Agentes core</li><li>· Informes básicos</li></ul><a href="https://argos.vecttore.com" class="block mt-6 text-center py-2.5 rounded-xl border border-white/10 hover:bg-white/5">Empezar</a></div>
+    <div class="rounded-2xl p-6 relative" style="background:linear-gradient(135deg,rgba(168,85,247,.18),rgba(124,58,237,.08));border:1px solid rgba(168,85,247,.5)"><div class="absolute -top-2 left-6 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-violet-500 text-white">Más popular</div><div class="text-violet-200 text-xs mb-1 uppercase tracking-wider">Pro</div><div class="text-3xl font-bold mb-3">$49<span class="text-sm font-normal text-slate-400">/mes</span></div><ul class="text-sm text-slate-200 space-y-2"><li>· 200 evaluaciones/mes</li><li>· Todos los agentes</li><li>· API access · soporte</li></ul><a href="https://argos.vecttore.com" class="block mt-6 text-center py-2.5 rounded-xl text-white font-medium" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">14 días gratis</a></div>
+    <div class="glass rounded-2xl p-6"><div class="text-violet-300 text-xs mb-1 uppercase tracking-wider">Enterprise</div><div class="text-3xl font-bold mb-3">Custom</div><ul class="text-sm text-slate-300 space-y-2"><li>· Evaluaciones ilimitadas</li><li>· SSO + audit log · SLA</li><li>· Multi-tenant + soporte 24/7</li></ul><a href="mailto:hola@peopletrust.cl" class="block mt-6 text-center py-2.5 rounded-xl border border-white/10 hover:bg-white/5">Hablar con ventas</a></div>
+  </div>
+</section>
+
+<!-- CAP 4: CASOS -->
+<section id="casos" class="px-5 sm:px-10 py-20 max-w-5xl mx-auto reveal">
+  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 4 · En la práctica</p>
+  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-10">Lo que dicen quienes ya usan PeopleTrust.</h2>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <blockquote class="glass rounded-2xl p-6"><p class="text-slate-200 text-sm mb-4">"Antes de PeopleTrust una evaluación tardaba 4-5 horas entre equipos. Ahora 30 minutos con informes consolidados."</p><cite class="text-xs text-slate-400 not-italic">— María, HR Lead</cite></blockquote>
+    <blockquote class="glass rounded-2xl p-6"><p class="text-slate-200 text-sm mb-4">"La revisión clínica de Hygea me da tranquilidad legal que ninguna otra plataforma ofrece."</p><cite class="text-xs text-slate-400 not-italic">— Carlos, Psicólogo Lab.</cite></blockquote>
+  </div>
+</section>
+
+<!-- CAP 5: CTA FINAL -->
+<section class="px-5 sm:px-10 py-24 text-center reveal">
+  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 5 · Empezá ahora</p>
+  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-6">¿Listo?</h2>
+  <p class="text-slate-300 max-w-md mx-auto mb-8">14 días gratis del plan Pro. Sin tarjeta. Hasta 200 evaluaciones para probar todo.</p>
+  <a href="https://argos.vecttore.com" class="inline-block px-8 py-4 rounded-xl text-white font-semibold" style="background:linear-gradient(135deg,#a855f7,#7c3aed);box-shadow:0 14px 36px rgba(168,85,247,.4)">Crear cuenta gratis →</a>
+</section>
+
+<footer class="text-center text-xs text-slate-500 py-8 border-t border-white/5">
+  © PeopleTrust · maqueta J (híbrido chat + scroll) · <a href="/preview/" class="text-violet-300 hover:underline">otras maquetas</a>
+</footer>
+
+<script>
+const chat=document.getElementById('chat'),form=document.getElementById('form'),input=document.getElementById('input'),micBtn=document.getElementById('micBtn');
+function addMsg(role,html){
+  const w=document.createElement('div');
+  w.className='bubble flex'+(role==='user'?' justify-end':'');
+  if(role==='valentina'){w.innerHTML=`<div class="bg-white/5 rounded-2xl rounded-tl-md px-3.5 py-2.5 text-sm text-slate-100 max-w-[85%]">${html}</div>`;}
+  else{w.innerHTML=`<div class="rounded-2xl rounded-tr-md px-3.5 py-2.5 text-sm text-white max-w-[85%]" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">${html}</div>`;}
+  chat.appendChild(w);chat.scrollTop=chat.scrollHeight;
+}
+function thinking(){const w=document.createElement('div');w.className='bubble';w.id='thk';w.innerHTML=`<div class="bg-white/5 rounded-2xl rounded-tl-md px-4 py-3 typing inline-block"><span></span><span></span><span></span></div>`;chat.appendChild(w);chat.scrollTop=chat.scrollHeight;}
+function stopThk(){document.getElementById('thk')?.remove();}
+function speak(t){if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,''));u.lang='es-ES';u.rate=1.05;u.pitch=1.1;speechSynthesis.speak(u);}
+function reply(m){m=m.toLowerCase();
+  if(/precio|costo|cuanto|plan/.test(m))return`3 planes: Free $0 · Pro $49/mes · Enterprise custom. Mirá abajo o <a href="#precios" class="text-violet-300 underline">salta a precios</a>.`;
+  if(/evaluar|candidato|t[eé]cnic/.test(m))return`Te conecto con <b>Sigmund</b> y <b>Smith</b>. Necesito nombre del candidato, rol y CV. ¿Empezamos?`;
+  if(/equipo|agente|demo|conoce/.test(m))return`Bajá un poco y conocé al equipo de 6 agentes 👇`;
+  if(/contact|humano|hablar/.test(m))return`Escribime a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> o dejame tu mail acá y te llamamos.`;
+  if(/hola|hey|buen/.test(m))return`¡Hola! Estoy para ayudarte. ¿Qué te interesa: evaluar candidatos, ver precios, o conocer el equipo?`;
+  return`Te puedo ayudar con: evaluaciones, precios, equipo, contacto. ¿Cuál?`;
+}
+function send(t){if(!t.trim())return;addMsg('user',t);input.value='';thinking();setTimeout(()=>{stopThk();const r=reply(t);addMsg('valentina',r);speak(r);},600+Math.random()*500);}
+form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
+document.querySelectorAll('.sug').forEach(b=>b.addEventListener('click',()=>send(b.dataset.msg)));
+
+// Speech recognition
+let rec,listening=false;
+if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  rec=new SR();rec.lang='es-CL';rec.continuous=false;rec.interimResults=false;
+  rec.onresult=e=>{const t=e.results[0][0].transcript;input.value=t;send(t);};
+  rec.onend=()=>{listening=false;micBtn.classList.remove('mic-on');};
+}
+micBtn.addEventListener('click',()=>{if(!rec){alert('Voz no soportada en este browser');return;}if(listening){rec.stop();return;}listening=true;micBtn.classList.add('mic-on');rec.start();});
+
+// Reveal on scroll
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

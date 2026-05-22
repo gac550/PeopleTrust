@@ -64,9 +64,10 @@
     </div>
   </div>
 
-  <div class="text-center mb-8 max-w-xl">
+  <div class="text-center mb-6 max-w-xl">
     <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-2">Hola, soy Valentina</h1>
-    <p class="text-slate-300 text-sm sm:text-base">Tu primer contacto en PeopleTrust. Decime qué necesitás y te conecto con quien corresponde.</p>
+    <p class="text-slate-300 text-sm sm:text-base">Te recibo en PeopleTrust. Conversemos sobre tu proceso de selección — quizás te conviene Free, o quizás Enterprise. Te ayudo a elegir.</p>
+    <p class="text-xs text-emerald-300 mt-3 font-medium">Hablar conmigo es gratis · siempre · sin signup</p>
   </div>
 
   <!-- Chat container -->
@@ -163,15 +164,63 @@ function speak(text){
   speechSynthesis.speak(u);
 }
 
-// Patrones de respuesta de Valentina (demo)
+// Valentina — Doctrina sales VAL-01..VAL-12 (docs/specs/valentina-sales-doctrine.md)
+// Lectura de señales (VAL-07): intent + sentiment + journey stage + objeciones.
+// Política VAL-01: conversación gratis SIEMPRE. Cero paywall (VAL-02).
+// Guardrails Themis (legal) + Hygea (no manipulación) en producción real.
 function reply(msg){
   const m = msg.toLowerCase();
-  if(/precio|costo|cuanto|plan/.test(m)) return `Tenemos 3 planes: <b>Free</b> (10 evals/mes, gratis), <b>Pro</b> ($49/mes, 200 evals + todos los agentes) y <b>Enterprise</b>. ¿Te interesa alguno en particular?`;
-  if(/evaluar|candidato|t[eé]cnic|liderazg/.test(m)) return `Perfecto. Te conecto con <b>Sigmund</b> (personalidad) y <b>Smith</b> (técnico/laboral). Empezamos con datos del candidato (nombre, rol al que aplica, CV). ¿Tenés esa info a mano?`;
-  if(/qui[eé]nes? son|nosotros|equipo|argos|peopletrust/.test(m)) return `Somos PeopleTrust, plataforma de evaluación psicolaboral con agentes IA. Yo soy Valentina (recepción). Mis colegas: Sigmund, Smith, Miyagi, Matusalem y Albert.`;
-  if(/contact|humano|persona|hablar/.test(m)) return `Dale, te derivo a un especialista humano. Dejame tu mail y te escribimos en menos de 24h hábiles. <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a>`;
-  if(/hola|hi|hey|buen/.test(m)) return `¡Hola! Contame en qué puedo ayudarte. Por ejemplo: <i>"evaluar un candidato técnico"</i> o <i>"cuánto cuesta"</i>.`;
-  return `Te puedo ayudar con: evaluaciones, precios, contacto con el equipo. ¿Cuál te interesa?`;
+
+  // Objeción precio (VAL-07) — reframe con valor, no descuento ciego
+  if(/caro|much[oa] (plata|dinero)|no (tengo|me alcanza|puedo pagar)/.test(m))
+    return `Te entiendo. Pensálo así: una contratación equivocada cuesta entre <b>6 y 12 sueldos</b> (onboarding + salida + reemplazo). El plan Pro a $49/mes paga UNA sola evaluación que evite ese error. Y si recién arrancás, el plan <b>Free</b> te da 10 evaluaciones gratis al mes — sin tarjeta.`;
+
+  // Objeción timing (VAL-07)
+  if(/ahora no|m[aá]s adelante|despu[eé]s|otro momento/.test(m))
+    return `Sin problema, no hay apuro. ¿Te dejo el material en tu mail y te escribo en 2 semanas? Mientras tanto podés explorar a tu ritmo. (Y conversar conmigo siempre es gratis.)`;
+
+  // Objeción autoridad
+  if(/(tengo|tenemos) que (consultar|hablar)|no (decido|soy yo)|jefe|equipo/.test(m))
+    return `Perfecto, te paso material para llevar al equipo. ¿Querés que organicemos una demo con quien decide? 30 minutos, sin compromiso.`;
+
+  // Buying intent ALTO (VAL-07 + VAL-09 most-aware)
+  if(/c[oó]mo (me )?registr|empezar|crear cuenta|trial|probar/.test(m))
+    return `¡Vamos! Creás cuenta en <a href="https://argos.vecttore.com" class="text-violet-300 underline font-medium">argos.vecttore.com</a> en 30 segundos. Sin tarjeta para el plan Free. ¿Te ayudo con algo del onboarding?`;
+
+  // Precio / pricing
+  if(/precio|costo|cuanto|cu[aá]l plan|plan|cobr/.test(m))
+    return `<b>Free</b> · $0/mes — 10 evaluaciones, agentes core, ideal para probar.<br/><b>Pro</b> · $49/mes — 200 evaluaciones, todos los agentes, API. <i>El más elegido.</i><br/><b>Enterprise</b> · custom — SSO, SLA, ilimitado.<br/>Hablar conmigo es <b>gratis siempre</b>. ¿Para qué tipo de proceso lo querés usar?`;
+
+  // SPIN — discovery sobre evaluación
+  if(/evaluar|candidato|t[eé]cnic|liderazg|reclutar|contratar/.test(m))
+    return `Genial. Contame: ¿cuántos procesos por mes manejás aproximadamente? Y el rol más frecuente, ¿es técnico, comercial, liderazgo? Así te recomiendo el plan justo (sin venderte de más).`;
+
+  // Pain / problem-aware (VAL-09)
+  if(/turnover|mala contrataci[oó]n|equivoc|salida|renunci|no funcion[oó]/.test(m))
+    return `Eso pasa más de lo que se cree. Una mala contratación cuesta entre 6 y 12 sueldos. Mis colegas Sigmund (personalidad) y Smith (laboral) bajan ese error fuerte — y te muestro casos similares al tuyo si me contás un poco más.`;
+
+  // Quiénes somos (unaware)
+  if(/qui[eé]nes? son|nosotros|equipo|argos|peopletrust|qu[eé] (son|hacen)/.test(m))
+    return `Somos PeopleTrust 🇨🇱. Plataforma de evaluación psicolaboral conducida por agentes IA con supervisión humana. Yo soy Valentina (te recibo). El equipo: Sigmund (personalidad), Smith (laboral), Miyagi (CEO/auditor), Matusalem (integra), Albert (deriva). Y guardrails Themis + Hygea cuidan compliance.`;
+
+  // Seguridad / confianza
+  if(/seguro|confiable|datos|privacidad|legal|compliance/.test(m))
+    return `Tu data vive en Supabase con RLS multi-tenant. Cumplimos Ley 19.628 (Chile) y RGPD-equivalente. Ningún agente puede dar diagnóstico clínico (es ilegal sin licencia) — por eso humanos firman los handoffs críticos.`;
+
+  // Contacto humano
+  if(/contact|humano|persona|hablar con alguien|llamar|ventas/.test(m))
+    return `Dale, te conecto. Dejame tu mail acá o escribime directo a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> — respondemos en menos de 24h hábiles.`;
+
+  // Frustración / confusión (VAL-07 sentiment)
+  if(/no entiendo|no me queda claro|c[oó]mo|qu[eé]\?/.test(m))
+    return `Perdón si fui poco clara. Lo digo más simple: somos como un equipo de RRHH IA que te ayuda a no equivocarte al contratar. ¿Qué parte querés que profundice? (Costos / cómo funciona / casos reales)`;
+
+  // Saludo (apertura VAL-10)
+  if(/^(hola|hi|hey|buen|qu[eé] tal)/.test(m))
+    return `¡Hola! Bienvenido a PeopleTrust 👋 Yo soy Valentina. Contame, ¿qué te trae por acá? Pueden ser <i>evaluaciones de candidatos</i>, <i>cómo funcionamos</i>, o cualquier duda. Hablar conmigo es gratis siempre.`;
+
+  // Fallback (siempre ofrecer próximo paso)
+  return `Buena pregunta. Te puedo ayudar con <b>evaluaciones</b>, <b>precios</b>, <b>cómo funcionamos</b>, o <b>conectarte con el equipo humano</b>. ¿Qué te sirve más?`;
 }
 
 function send(text){

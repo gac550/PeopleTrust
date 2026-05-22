@@ -70,7 +70,8 @@
 
     <!-- Chat -->
     <div class="glass rounded-3xl p-3 sm:p-4">
-      <p class="text-xs uppercase tracking-widest text-violet-300 mb-3 px-2">Hola, soy Valentina · FrontOffice</p>
+      <p class="text-xs uppercase tracking-widest text-violet-300 mb-1 px-2">Hola, soy Valentina · FrontOffice</p>
+      <p class="text-[10px] text-emerald-300 mb-3 px-2 font-medium">Conversar conmigo es gratis · siempre · sin signup</p>
       <div id="chat" class="chat-scroll min-h-[140px] max-h-[34vh] overflow-y-auto px-2 py-2 space-y-3 mb-2">
         <div class="bubble bg-white/5 rounded-2xl rounded-tl-md px-3.5 py-2.5 text-sm text-slate-100">
           Decime, ¿qué necesitás? Puedo evaluar candidatos, mostrarte precios o conectarte con el equipo.
@@ -183,13 +184,20 @@ function addMsg(role,html){
 function thinking(){const w=document.createElement('div');w.className='bubble';w.id='thk';w.innerHTML=`<div class="bg-white/5 rounded-2xl rounded-tl-md px-4 py-3 typing inline-block"><span></span><span></span><span></span></div>`;chat.appendChild(w);chat.scrollTop=chat.scrollHeight;}
 function stopThk(){document.getElementById('thk')?.remove();}
 function speak(t){if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,''));u.lang='es-ES';u.rate=1.05;u.pitch=1.1;speechSynthesis.speak(u);}
+// Valentina sales doctrine VAL-01..VAL-12 (corta — versión full en A.html)
 function reply(m){m=m.toLowerCase();
-  if(/precio|costo|cuanto|plan/.test(m))return`3 planes: Free $0 · Pro $49/mes · Enterprise custom. Mirá abajo o <a href="#precios" class="text-violet-300 underline">salta a precios</a>.`;
-  if(/evaluar|candidato|t[eé]cnic/.test(m))return`Te conecto con <b>Sigmund</b> y <b>Smith</b>. Necesito nombre del candidato, rol y CV. ¿Empezamos?`;
-  if(/equipo|agente|demo|conoce/.test(m))return`Bajá un poco y conocé al equipo de 6 agentes 👇`;
-  if(/contact|humano|hablar/.test(m))return`Escribime a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> o dejame tu mail acá y te llamamos.`;
-  if(/hola|hey|buen/.test(m))return`¡Hola! Estoy para ayudarte. ¿Qué te interesa: evaluar candidatos, ver precios, o conocer el equipo?`;
-  return`Te puedo ayudar con: evaluaciones, precios, equipo, contacto. ¿Cuál?`;
+  if(/caro|much[oa] plata|no (tengo|puedo pagar)/.test(m))return`Una mala contratación cuesta 6-12 sueldos. Pro a $49/mes paga UNA evaluación que evite ese error. Y si recién arrancás, el plan <b>Free</b> da 10 evals/mes <i>sin tarjeta</i>.`;
+  if(/ahora no|m[aá]s adelante|despu[eé]s/.test(m))return`Sin apuro. ¿Te dejo material en mail? Hablar conmigo siempre es gratis cuando vuelvas.`;
+  if(/c[oó]mo (me )?registr|empezar|trial|probar/.test(m))return`¡Vamos! <a href="https://argos.vecttore.com" class="text-violet-300 underline font-medium">argos.vecttore.com</a> · 30 seg · plan Free sin tarjeta.`;
+  if(/precio|costo|cuanto|plan/.test(m))return`<b>Free</b> $0 · <b>Pro</b> $49/mes (más elegido) · <b>Enterprise</b> custom. <a href="#precios" class="text-violet-300 underline">tabla completa abajo</a> ↓`;
+  if(/evaluar|candidato|t[eé]cnic|liderazg/.test(m))return`Genial. Contame: ¿cuántos procesos/mes y qué rol más frecuente? Así te recomiendo plan justo (sin venderte de más).`;
+  if(/turnover|mala contratac|equivoc|salida|renunci/.test(m))return`Eso pasa más de lo que se cree. Sigmund (personalidad) + Smith (laboral) bajan ese error fuerte. ¿Querés que te cuente cómo?`;
+  if(/equipo|agente|conoce/.test(m))return`Bajá un poco 👇 hay 6 agentes con superpoderes distintos.`;
+  if(/seguro|datos|privacidad|legal/.test(m))return`Supabase con RLS multi-tenant. Cumplimos Ley 19.628 + RGPD. Ningún agente da diagnóstico clínico (humanos firman handoffs críticos).`;
+  if(/contact|humano|hablar/.test(m))return`Escribime a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> o dejame tu mail.`;
+  if(/no entiendo|no me queda claro/.test(m))return`Perdón, lo digo simple: somos como tu equipo RRHH IA que ayuda a no equivocarte al contratar. ¿Qué parte te aclaro?`;
+  if(/^(hola|hi|hey|buen)/.test(m))return`¡Hola! Soy Valentina 👋 ¿Qué te trae? Evals, precios, equipo, lo que sea. <b>Gratis siempre.</b>`;
+  return`Buena. Te ayudo con: evaluaciones, precios, equipo, contacto. ¿Cuál?`;
 }
 function send(t){if(!t.trim())return;addMsg('user',t);input.value='';thinking();setTimeout(()=>{stopThk();const r=reply(t);addMsg('valentina',r);speak(r);},600+Math.random()*500);}
 form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});

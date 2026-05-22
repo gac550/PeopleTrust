@@ -21,7 +21,7 @@
     if(/c[oó]mo (me )?registr|empezar|crear cuenta|trial|probar/.test(m))
       return `¡Vamos! <a href="https://argos.vecttore.com" class="text-violet-400 underline font-medium">argos.vecttore.com</a> · 30 segundos · plan Free sin tarjeta.`;
     if(/precio|costo|cuanto|cu[aá]l plan|plan|cobr/.test(m))
-      return `<b>Free</b> $0 — 10 evals/mes · <b>Pro</b> $49/mes — 200 evals + voz Valentina (ElevenLabs) · <b>Enterprise</b> custom. ¿Para qué proceso lo querés usar?`;
+      return `<b>Free</b> $0 — 10 evals/mes · <b>Pro</b> $49/mes — 200 evals + voz Valentina (ElevenLabs) · <b>Enterprise</b> custom. ¿Para qué proceso lo quieres usar?`;
     if(/evaluar|candidato|t[eé]cnic|liderazg|reclutar|contratar/.test(m))
       return `Genial. ¿Cuántos procesos/mes manejás y qué rol más frecuente? Así te recomiendo el plan justo (sin venderte de más).`;
     if(/turnover|mala contrataci[oó]n|equivoc|salida|renunci/.test(m))
@@ -33,11 +33,11 @@
     if(/voz|hablar|micr[oó]fono|elevenlabs/.test(m))
       return `La voz natural (ElevenLabs) es parte del plan <b>Pro</b>. En el plan Free conversamos por texto, gratis siempre. ¿Te interesa Pro?`;
     if(/contact|humano|persona|hablar con alguien|llamar|ventas|email|mail/.test(m))
-      return `Escribime a <a href="mailto:hola@peopletrust.cl" class="text-violet-400 underline">hola@peopletrust.cl</a> o dejame tu mail. Respondemos en <24h hábiles.`;
+      return `Escríbeme a <a href="mailto:hola@peopletrust.cl" class="text-violet-400 underline">hola@peopletrust.cl</a> o déjame tu mail. Respondemos en <24h hábiles.`;
     if(/no entiendo|no me queda claro|qu[eé]\?/.test(m))
       return `Lo digo simple: somos como un equipo RRHH IA que ayuda a no equivocarte al contratar. ¿Qué parte profundizo?`;
     if(/^(hola|hi|hey|buen|qu[eé] tal)/.test(m))
-      return `¡Hola! Soy Valentina 👋 Contame qué te trae. Hablar conmigo es <b>gratis siempre</b>.`;
+      return `¡Hola! Soy Valentina 👋 Cuéntame qué te trae. Hablar conmigo es <b>gratis siempre</b>.`;
     return `Te ayudo con: evaluaciones, precios, equipo, contacto. ¿Cuál te sirve?`;
   }
   function bindMic(btn){

@@ -29,7 +29,7 @@
 
 <main class="max-w-3xl mx-auto px-6 py-10">
 <p class="text-xs text-violet-400 mb-2">// playground</p>
-<h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">Probá una mini-evaluación ahora.</h1>
+<h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">Prueba una mini-evaluación ahora.</h1>
 <p class="text-zinc-400 mb-8 text-sm">3 preguntas reales con Valentina · sin signup · resultado en 30 seg.</p>
 
 <div class="term mb-4">
@@ -42,7 +42,7 @@
 <div id="chat" class="px-4 py-4 min-h-[260px] max-h-[40vh] overflow-y-auto text-sm leading-relaxed"></div>
 <form id="form" class="border-t border-zinc-900 px-3 py-2 flex items-center gap-2">
 <span class="prompt-line text-sm">&gt;</span>
-<input id="input" placeholder="escribí tu respuesta…" class="flex-1 bg-transparent outline-none px-2 py-2 text-sm text-white placeholder:text-zinc-600"/>
+<input id="input" placeholder="escribe tu respuesta…" class="flex-1 bg-transparent outline-none px-2 py-2 text-sm text-white placeholder:text-zinc-600"/>
 <button type="submit" class="kbd">enter ↵</button>
 </form>
 </div>
@@ -70,6 +70,6 @@ function send(t){if(!t.trim())return;add('user',t);input.value='';setTimeout(()=
 form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>send(c.dataset.msg)));
 // Seed
-setTimeout(()=>add('valentina','hola · soy valentina. ¿en qué te ayudo? podés probar los sample queries abajo ↓'),300);
+setTimeout(()=>add('valentina','hola · soy valentina. ¿en qué te ayudo? puedes probar los sample queries abajo ↓'),300);
 </script>
 </body></html>

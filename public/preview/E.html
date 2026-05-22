@@ -26,13 +26,13 @@
 </header>
 
 <main class="flex-1 flex flex-col items-center justify-center px-6 py-12 max-w-2xl mx-auto w-full">
-<h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-2 text-center">Hablá con Valentina</h1>
+<h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-2 text-center">Habla con Valentina</h1>
 <p class="text-zinc-500 text-center mb-10 text-sm">Tu primer paso en una evaluación profesional · gratis siempre</p>
 
 <div id="chat" class="chat w-full space-y-3 mb-6"></div>
 
 <form id="form" class="w-full input-mega flex items-end gap-2 p-3">
-<textarea id="input" rows="1" placeholder="Probá: 'quiero evaluar un candidato técnico'" class="flex-1 resize-none bg-transparent outline-none px-2 py-2 placeholder:text-zinc-400"></textarea>
+<textarea id="input" rows="1" placeholder="Prueba: 'quiero evaluar un candidato técnico'" class="flex-1 resize-none bg-transparent outline-none px-2 py-2 placeholder:text-zinc-400"></textarea>
 <button type="submit" class="send" aria-label="Enviar">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
@@ -57,7 +57,7 @@ form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
 input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send(input.value);}});
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>send(c.dataset.msg)));
 // Placeholder rotator
-const phs=['Probá: "quiero evaluar un candidato técnico"','Probá: "cuánto sale el plan Pro"','Probá: "qué incluye Free"','Probá: "tengo mucho turnover"'];
+const phs=['Prueba: "quiero evaluar un candidato técnico"','Prueba: "cuánto sale el plan Pro"','Prueba: "qué incluye Free"','Prueba: "tengo mucho turnover"'];
 let pi=0;setInterval(()=>{pi=(pi+1)%phs.length;input.placeholder=phs[pi];},3500);
 </script>
 </body></html>

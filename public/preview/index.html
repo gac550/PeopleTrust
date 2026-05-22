@@ -8,8 +8,8 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <base href="/preview/" />
-<!-- TD-05 anti-FOUC -->
-<script>document.documentElement.dataset.theme=localStorage.getItem('pt-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')</script>
+<!-- TD-05 anti-FOUC · default LIGHT (mandato user 2026-05-21) -->
+<script>document.documentElement.dataset.theme=localStorage.getItem('pt-theme')||'light'</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root[data-theme="dark"]  { --bg:#070612; --fg:#e5e3f0; --muted:#94a3b8; --accent:#a855f7; --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.10); --hover:rgba(255,255,255,.06); }
@@ -51,6 +51,7 @@ iframe{display:block;width:100%;height:100%;border:0;background:var(--bg);transi
     <button class="tab" data-src="H.html" data-label="H" title="H · Notion cálido">H</button>
     <button class="tab" data-src="I.html" data-label="I" title="I · Replicate demo">I</button>
     <button class="tab" data-src="J.html" data-label="J" title="J · híbrido scroll">J</button>
+    <button class="tab" data-src="K.html" data-label="K" title="K · combinada J+H+G+A (humanizada)">K</button>
   </nav>
 
   <!-- Tools right -->

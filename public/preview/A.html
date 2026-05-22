@@ -91,7 +91,7 @@
 
     <!-- Input area -->
     <form id="form" class="flex items-end gap-2 p-2">
-      <textarea id="input" rows="1" placeholder="Escribí o tocá el micrófono…" class="flex-1 resize-none bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5 max-h-32"></textarea>
+      <textarea id="input" rows="1" placeholder="Escribe o tocá el micrófono…" class="flex-1 resize-none bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5 max-h-32"></textarea>
       <button type="button" id="micBtn" aria-label="Voz (próximamente con plan Pro)" class="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10 transition opacity-50" title="Voz Valentina · disponible con plan Pro (ElevenLabs)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       </button>
@@ -109,7 +109,7 @@
 <!-- Bottom CTA bar -->
 <section id="precios" class="px-5 py-12 max-w-5xl mx-auto text-center">
   <p class="text-xs uppercase tracking-widest text-violet-300 mb-3">Planes</p>
-  <h2 class="text-2xl sm:text-3xl font-semibold mb-8 text-white">Empezá gratis. Escalá cuando quieras.</h2>
+  <h2 class="text-2xl sm:text-3xl font-semibold mb-8 text-white">Empieza gratis. Escalá cuando quieras.</h2>
   <div class="grid sm:grid-cols-3 gap-4 text-left">
     <div class="glass rounded-2xl p-5"><div class="text-violet-300 text-xs mb-1">Free</div><div class="text-2xl font-bold text-white mb-1">$0</div><div class="text-xs text-slate-400">10 evaluaciones / mes</div></div>
     <div class="rounded-2xl p-5" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(124,58,237,.1));border:1px solid rgba(168,85,247,.4)"><div class="text-violet-200 text-xs mb-1">Pro · más popular</div><div class="text-2xl font-bold text-white mb-1">$49<span class="text-xs font-normal text-slate-400">/mes</span></div><div class="text-xs text-slate-300">200 evaluaciones + todos los agentes</div></div>
@@ -169,11 +169,11 @@ function reply(msg){
 
   // Objeción precio (VAL-07) — reframe con valor, no descuento ciego
   if(/caro|much[oa] (plata|dinero)|no (tengo|me alcanza|puedo pagar)/.test(m))
-    return `Te entiendo. Pensálo así: una contratación equivocada cuesta entre <b>6 y 12 sueldos</b> (onboarding + salida + reemplazo). El plan Pro a $49/mes paga UNA sola evaluación que evite ese error. Y si recién arrancás, el plan <b>Free</b> te da 10 evaluaciones gratis al mes — sin tarjeta.`;
+    return `Te entiendo. Piénsalo así: una contratación equivocada cuesta entre <b>6 y 12 sueldos</b> (onboarding + salida + reemplazo). El plan Pro a $49/mes paga UNA sola evaluación que evite ese error. Y si recién arrancás, el plan <b>Free</b> te da 10 evaluaciones gratis al mes — sin tarjeta.`;
 
   // Objeción timing (VAL-07)
   if(/ahora no|m[aá]s adelante|despu[eé]s|otro momento/.test(m))
-    return `Sin problema, no hay apuro. ¿Te dejo el material en tu mail y te escribo en 2 semanas? Mientras tanto podés explorar a tu ritmo. (Y conversar conmigo siempre es gratis.)`;
+    return `Sin problema, no hay apuro. ¿Te dejo el material en tu mail y te escribo en 2 semanas? Mientras tanto puedes explorar a tu ritmo. (Y conversar conmigo siempre es gratis.)`;
 
   // Objeción autoridad
   if(/(tengo|tenemos) que (consultar|hablar)|no (decido|soy yo)|jefe|equipo/.test(m))
@@ -185,11 +185,11 @@ function reply(msg){
 
   // Precio / pricing
   if(/precio|costo|cuanto|cu[aá]l plan|plan|cobr/.test(m))
-    return `<b>Free</b> · $0/mes — 10 evaluaciones, agentes core, ideal para probar.<br/><b>Pro</b> · $49/mes — 200 evaluaciones, todos los agentes, API. <i>El más elegido.</i><br/><b>Enterprise</b> · custom — SSO, SLA, ilimitado.<br/>Hablar conmigo es <b>gratis siempre</b>. ¿Para qué tipo de proceso lo querés usar?`;
+    return `<b>Free</b> · $0/mes — 10 evaluaciones, agentes core, ideal para probar.<br/><b>Pro</b> · $49/mes — 200 evaluaciones, todos los agentes, API. <i>El más elegido.</i><br/><b>Enterprise</b> · custom — SSO, SLA, ilimitado.<br/>Hablar conmigo es <b>gratis siempre</b>. ¿Para qué tipo de proceso lo quieres usar?`;
 
   // SPIN — discovery sobre evaluación
   if(/evaluar|candidato|t[eé]cnic|liderazg|reclutar|contratar/.test(m))
-    return `Genial. Contame: ¿cuántos procesos por mes manejás aproximadamente? Y el rol más frecuente, ¿es técnico, comercial, liderazgo? Así te recomiendo el plan justo (sin venderte de más).`;
+    return `Genial. Cuéntame: ¿cuántos procesos por mes manejás aproximadamente? Y el rol más frecuente, ¿es técnico, comercial, liderazgo? Así te recomiendo el plan justo (sin venderte de más).`;
 
   // Pain / problem-aware (VAL-09)
   if(/turnover|mala contrataci[oó]n|equivoc|salida|renunci|no funcion[oó]/.test(m))
@@ -205,15 +205,15 @@ function reply(msg){
 
   // Contacto humano
   if(/contact|humano|persona|hablar con alguien|llamar|ventas/.test(m))
-    return `Dale, te conecto. Dejame tu mail acá o escribime directo a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> — respondemos en menos de 24h hábiles.`;
+    return `Claro, te conecto. Déjame tu mail acá o escríbeme directo a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> — respondemos en menos de 24h hábiles.`;
 
   // Frustración / confusión (VAL-07 sentiment)
   if(/no entiendo|no me queda claro|c[oó]mo|qu[eé]\?/.test(m))
-    return `Perdón si fui poco clara. Lo digo más simple: somos como un equipo de RRHH IA que te ayuda a no equivocarte al contratar. ¿Qué parte querés que profundice? (Costos / cómo funciona / casos reales)`;
+    return `Perdón si fui poco clara. Lo digo más simple: somos como un equipo de RRHH IA que te ayuda a no equivocarte al contratar. ¿Qué parte quieres que profundice? (Costos / cómo funciona / casos reales)`;
 
   // Saludo (apertura VAL-10)
   if(/^(hola|hi|hey|buen|qu[eé] tal)/.test(m))
-    return `¡Hola! Bienvenido a PeopleTrust 👋 Yo soy Valentina. Contame, ¿qué te trae por acá? Pueden ser <i>evaluaciones de candidatos</i>, <i>cómo funcionamos</i>, o cualquier duda. Hablar conmigo es gratis siempre.`;
+    return `¡Hola! Bienvenido a PeopleTrust 👋 Yo soy Valentina. Cuéntame, ¿qué te trae por acá? Pueden ser <i>evaluaciones de candidatos</i>, <i>cómo funcionamos</i>, o cualquier duda. Hablar conmigo es gratis siempre.`;
 
   // Fallback (siempre ofrecer próximo paso)
   return `Buena pregunta. Te puedo ayudar con <b>evaluaciones</b>, <b>precios</b>, <b>cómo funcionamos</b>, o <b>conectarte con el equipo humano</b>. ¿Qué te sirve más?`;
@@ -238,7 +238,7 @@ suggestions.forEach(b => b.addEventListener('click', ()=> send(b.dataset.msg)));
 
 // Voz Valentina (mic) — locked en MVP. Se activa con plan Pro vía ElevenLabs.
 micBtn.addEventListener('click', () => {
-  addMsg('valentina', 'La voz es parte del plan <b>Pro</b>. Con voz real de estudio (ElevenLabs) podemos conversar fluido. Mientras tanto, escribime acá. 💬');
+  addMsg('valentina', 'La voz es parte del plan <b>Pro</b>. Con voz real de estudio (ElevenLabs) podemos conversar fluido. Mientras tanto, escríbeme acá. 💬');
 });
 
 // Mobile nav

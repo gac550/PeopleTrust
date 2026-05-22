@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Maqueta K · Combinada (J+H+G+A) · PeopleTrust</title>
+<meta http-equiv="Cache-Control" content="no-store" />
+<!-- Anti-FOUC: theme antes del paint -->
+<script>
+(function(){
+  const url = new URL(location.href);
+  const q = url.searchParams.get('theme');
+  const t = q || localStorage.getItem('pt-theme') || 'light';
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root[data-theme="light"]{
+  --bg:#fbf7f0;          /* crema cálida — humanized (AH-04) */
+  --bg-soft:#f5ede0;
+  --fg:#1c1410;
+  --muted:#6b6258;
+  --accent:#22c55e;       /* verde Valentina */
+  --accent-2:#c2410c;     /* terracota */
+  --card:#ffffff;
+  --border:#e8dfd0;
+  --shadow:0 18px 60px rgba(28,20,16,.08);
+  --noise:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"]{
+  --bg:#0c0a14;
+  --bg-soft:#171221;
+  --fg:#ece5f5;
+  --muted:#9991ad;
+  --accent:#22c55e;
+  --accent-2:#fbbf24;     /* mostaza dark (AH-04 contraste cálido) */
+  --card:#1a1428;
+  --border:#2a2240;
+  --shadow:0 18px 60px rgba(0,0,0,.5);
+  --noise:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg);font-family:'Söhne','IBM Plex Sans','Inter',ui-sans-serif,sans-serif;margin:0;transition:background-color .25s,color .25s;}
+body::before{content:'';position:fixed;inset:0;background-image:var(--noise);pointer-events:none;z-index:1;mix-blend-mode:overlay;}
+.display{font-family:'Fraunces','PT Serif',Georgia,serif;font-weight:600;letter-spacing:-.02em;font-variation-settings:'opsz' 144,'SOFT' 50;}
+.mono{font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);}
+.btn-primary{background:var(--fg);color:var(--bg);padding:14px 22px;border-radius:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .15s;}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--fg);border:1.5px solid var(--border);padding:14px 22px;border-radius:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:.15s;}
+.btn-ghost:hover{background:var(--bg-soft);border-color:var(--fg);}
+.bubble-val{background:var(--card);border:1px solid var(--border);border-radius:18px 18px 18px 4px;padding:14px 18px;animation:rise .5s cubic-bezier(.34,1.56,.64,1) both;}
+.bubble-user{background:var(--fg);color:var(--bg);border-radius:18px 18px 4px 18px;padding:14px 18px;animation:rise .5s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes rise{from{opacity:0;transform:translateY(12px) rotate(-.3deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin:0 2px;animation:typ 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.18s}.typing span:nth-child(3){animation-delay:.36s}
+@keyframes typ{0%,80%,100%{opacity:.3;transform:scale(.7)}40%{opacity:1;transform:scale(1)}}
+.av-large{width:128px;height:128px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:var(--shadow),0 0 0 6px var(--card),0 0 0 7px var(--border);position:relative;}
+.av-large::after{content:'';position:absolute;inset:-12px;border-radius:50%;border:1.5px dashed var(--accent);opacity:.35;animation:spin 22s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.reveal{opacity:0;transform:translateY(28px);transition:.7s cubic-bezier(.34,1.56,.64,1);}
+.reveal.on{opacity:1;transform:translateY(0);}
+.tilt{transform:rotate(-1deg);}
+.tilt-r{transform:rotate(.8deg);}
+.dashed-link{text-decoration:underline;text-decoration-style:dashed;text-underline-offset:4px;}
+.glow-accent{box-shadow:0 14px 40px color-mix(in srgb, var(--accent) 30%, transparent);}
+.chip{display:inline-block;padding:5px 12px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--border);font-size:12px;color:var(--muted);}
+.iconbtn{width:42px;height:42px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--border);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:.15s;}
+.iconbtn:hover{background:var(--card);transform:rotate(-8deg);}
+section{position:relative;z-index:2;}
+.serif-quote{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;line-height:1.55;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 px-5 sm:px-8 py-3 flex justify-between items-center" style="background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+  <a href="/preview/" class="flex items-center gap-2">
+    <div class="w-9 h-9 rounded-xl tilt" style="background:var(--accent)"></div>
+    <span class="display text-xl">PeopleTrust</span>
+  </a>
+  <nav class="hidden sm:flex items-center gap-1 text-sm">
+    <a class="px-3 py-2 rounded-lg hover:bg-[var(--bg-soft)]" href="#equipo">Equipo</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-[var(--bg-soft)]" href="#como">Cómo funciona</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-[var(--bg-soft)]" href="#precios">Precios</a>
+    <a class="px-3 py-2 rounded-lg hover:bg-[var(--bg-soft)]" href="#faq">FAQ</a>
+  </nav>
+  <div class="flex items-center gap-2">
+    <button id="themeBtn" class="iconbtn" aria-label="Cambiar tema" title="Tema claro/oscuro">
+      <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a href="https://argos.vecttore.com" class="btn-primary text-sm" style="padding:10px 18px;">Empezar gratis</a>
+  </div>
+</header>
+
+<!-- HERO: chat protagonista (A+J) -->
+<section class="px-5 sm:px-8 pt-12 pb-20 max-w-6xl mx-auto">
+  <div class="grid lg:grid-cols-[1fr_460px] gap-12 items-center">
+
+    <!-- Lado izq: copy + avatar -->
+    <div>
+      <span class="chip mb-6">PeopleTrust · evaluación psicolaboral con IA</span>
+      <h1 class="display text-5xl sm:text-7xl leading-[.95] mt-4 mb-5">
+        Hablemos de tu próxima<br/>
+        <span style="color:var(--accent-2);">contratación.</span>
+      </h1>
+      <p class="text-lg sm:text-xl mb-8" style="color:var(--muted);max-width:520px;">
+        Una mala contratación cuesta 6–12 sueldos. Te ayudamos a no equivocarte con un equipo de agentes IA conducido por <strong style="color:var(--fg);">Valentina</strong> — y con humanos firmando lo crítico.
+      </p>
+      <div class="flex flex-wrap gap-3 mb-10">
+        <a href="https://argos.vecttore.com" class="btn-primary">Crear cuenta gratis <span>→</span></a>
+        <a href="#chat" class="btn-ghost">Conversar primero</a>
+      </div>
+      <div class="flex items-center gap-3 text-sm" style="color:var(--muted);">
+        <span class="w-2 h-2 rounded-full" style="background:var(--accent);"></span>
+        Conversar con Valentina es <strong style="color:var(--fg);">gratis siempre</strong> · sin tarjeta · sin signup
+      </div>
+    </div>
+
+    <!-- Lado der: chat con Valentina (A vibe) -->
+    <div id="chat" class="card p-5 sm:p-6 tilt-r">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="av-large" style="width:64px;height:64px;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+        </div>
+        <div>
+          <div class="display text-xl">Valentina</div>
+          <div class="text-xs" style="color:var(--muted);">FrontOffice · en línea</div>
+        </div>
+      </div>
+
+      <div id="chatLog" class="space-y-3 mb-4 min-h-[160px] max-h-[300px] overflow-y-auto">
+        <div class="bubble-val text-sm">
+          Hola. Cuéntame, ¿qué tipo de proceso de selección manejas? Te recomiendo el plan que mejor se ajuste.
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button class="sug chip cursor-pointer hover:bg-[var(--card)]" data-msg="cuánto cuesta">cuánto cuesta</button>
+        <button class="sug chip cursor-pointer hover:bg-[var(--card)]" data-msg="evaluar técnico">evaluar técnico</button>
+        <button class="sug chip cursor-pointer hover:bg-[var(--card)]" data-msg="tengo turnover">tengo turnover</button>
+      </div>
+
+      <form id="form" class="flex items-center gap-2">
+        <input id="input" placeholder="Escribe tu pregunta…" class="flex-1 px-4 py-3 rounded-xl text-sm" style="background:var(--bg-soft);border:1px solid var(--border);color:var(--fg);outline:none;"/>
+        <button type="button" id="micBtn" class="iconbtn opacity-50" title="Voz · plan Pro">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        </button>
+        <button type="submit" class="iconbtn" style="background:var(--accent);color:white;border-color:transparent;" aria-label="Enviar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </button>
+      </form>
+      <p class="text-[10px] mt-3" style="color:var(--muted);">La voz natural de Valentina (ElevenLabs) viene con el plan Pro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA (B+J narrativo) -->
+<section id="como" class="px-5 sm:px-8 py-20 max-w-6xl mx-auto reveal">
+  <span class="chip mb-3">Cómo funciona</span>
+  <h2 class="display text-4xl sm:text-6xl mb-12 leading-tight">Tres pasos.<br/><span style="color:var(--accent);">Sin fricción.</span></h2>
+  <div class="grid sm:grid-cols-3 gap-6">
+    <div class="card p-7">
+      <div class="mono text-xs mb-3" style="color:var(--accent-2);">01</div>
+      <h3 class="display text-2xl mb-2">Valentina te recibe</h3>
+      <p class="text-sm" style="color:var(--muted);">Conversación gratis para entender tu caso. Sin signup ni paywall.</p>
+    </div>
+    <div class="card p-7" style="transform:translateY(20px);">
+      <div class="mono text-xs mb-3" style="color:var(--accent-2);">02</div>
+      <h3 class="display text-2xl mb-2">Sigmund + Smith evalúan</h3>
+      <p class="text-sm" style="color:var(--muted);">Personalidad (7 dimensiones) + competencias laborales. Guardrails Themis y Hygea revisan cada turno.</p>
+    </div>
+    <div class="card p-7">
+      <div class="mono text-xs mb-3" style="color:var(--accent-2);">03</div>
+      <h3 class="display text-2xl mb-2">Matusalem consolida</h3>
+      <p class="text-sm" style="color:var(--muted);">Informe único trazable con recomendación. Albert deriva a psicólogo humano si aplica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO (F galería) -->
+<section id="equipo" class="px-5 sm:px-8 py-20 max-w-6xl mx-auto reveal">
+  <span class="chip mb-3">El equipo</span>
+  <h2 class="display text-4xl sm:text-6xl mb-3 leading-tight">Seis agentes especialistas<span style="color:var(--accent-2);">.</span></h2>
+  <p class="text-lg mb-12" style="color:var(--muted);max-width:560px;">Cada uno está entrenado para un rol específico. Humanos firman lo crítico.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+    <div class="card p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:var(--accent)"></div><div class="display text-lg">Valentina</div><div class="text-xs mono" style="color:var(--accent);">FRONTOFFICE</div><p class="text-xs mt-2" style="color:var(--muted);">Recepción + estrategia consultiva.</p></div>
+    <div class="card p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:var(--accent)"></div><div class="display text-lg">Sigmund</div><div class="text-xs mono" style="color:var(--accent);">PERSONALIDAD</div><p class="text-xs mt-2" style="color:var(--muted);">Entrevista en 7 dimensiones.</p></div>
+    <div class="card p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:var(--accent)"></div><div class="display text-lg">Smith</div><div class="text-xs mono" style="color:var(--accent);">LABORAL</div><p class="text-xs mt-2" style="color:var(--muted);">BEI + competencias + CV.</p></div>
+    <div class="card p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#a855f7"></div><div class="display text-lg">Miyagi</div><div class="text-xs mono" style="color:#a855f7;">ORQUESTADOR</div><p class="text-xs mt-2" style="color:var(--muted);">CEO + auditor de cada flujo.</p></div>
+    <div class="card p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#0ea5e9"></div><div class="display text-lg">Matusalem</div><div class="text-xs mono" style="color:#0ea5e9;">INTEGRADOR</div><p class="text-xs mt-2" style="color:var(--muted);">Consolida informes.</p></div>
+    <div class="card p-5"><div class="w-10 h-10 rounded-full mb-3" style="background:#0ea5e9"></div><div class="display text-lg">Albert</div><div class="text-xs mono" style="color:#0ea5e9;">DERIVADOR</div><p class="text-xs mt-2" style="color:var(--muted);">Asigna psicólogo humano.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS (H cálido) -->
+<section class="px-5 sm:px-8 py-20 max-w-6xl mx-auto reveal">
+  <span class="chip mb-3">En la práctica</span>
+  <h2 class="display text-4xl sm:text-5xl mb-12 leading-tight">Lo que dicen quienes ya nos usan.</h2>
+  <div class="grid sm:grid-cols-2 gap-5">
+    <blockquote class="card p-7">
+      <p class="serif-quote mb-4">"Antes una evaluación nos tomaba 4 horas entre equipos. Ahora 30 minutos con un informe consolidado y trazable."</p>
+      <cite class="text-sm not-italic font-medium">— María González · HR Lead, Acme</cite>
+    </blockquote>
+    <blockquote class="card p-7">
+      <p class="serif-quote mb-4">"La revisión clínica de Hygea me da tranquilidad legal que ninguna otra plataforma ofrece. Vale el plan Pro."</p>
+      <cite class="text-sm not-italic font-medium">— Carlos Vera · Psicólogo Laboral</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios" class="px-5 sm:px-8 py-20 max-w-6xl mx-auto reveal">
+  <span class="chip mb-3">Planes</span>
+  <h2 class="display text-4xl sm:text-6xl mb-12 leading-tight">Empieza gratis.<br/><span style="color:var(--accent);">Escala cuando quieras.</span></h2>
+  <div class="grid sm:grid-cols-3 gap-5">
+    <div class="card p-7"><div class="mono text-xs mb-2" style="color:var(--accent-2);">FREE</div><div class="display text-4xl mb-2">$0</div><div class="text-sm mb-5" style="color:var(--muted);">10 evaluaciones/mes · sin tarjeta</div><a href="https://argos.vecttore.com" class="btn-ghost text-sm w-full justify-center">Empezar</a></div>
+    <div class="card p-7 glow-accent" style="border-color:var(--accent);"><div class="mono text-xs mb-2" style="color:var(--accent);">PRO · más elegido</div><div class="display text-4xl mb-2">$49<span class="text-base font-normal" style="color:var(--muted);">/mes</span></div><div class="text-sm mb-5" style="color:var(--muted);">200 evals + voz Valentina (ElevenLabs) + API</div><a href="https://argos.vecttore.com" class="btn-primary text-sm w-full justify-center" style="background:var(--accent);color:white;">14 días gratis</a></div>
+    <div class="card p-7"><div class="mono text-xs mb-2" style="color:var(--accent-2);">ENTERPRISE</div><div class="display text-4xl mb-2">Custom</div><div class="text-sm mb-5" style="color:var(--muted);">SSO · SLA 99.9% · ilimitado · multi-tenant</div><a href="mailto:hola@peopletrust.cl" class="btn-ghost text-sm w-full justify-center">Hablar con ventas</a></div>
+  </div>
+</section>
+
+<!-- FAQ (educativo AH-07) -->
+<section id="faq" class="px-5 sm:px-8 py-20 max-w-3xl mx-auto reveal">
+  <span class="chip mb-3">Preguntas frecuentes</span>
+  <h2 class="display text-4xl sm:text-5xl mb-10 leading-tight">Lo que más nos preguntan.</h2>
+  <details class="card p-5 mb-3"><summary class="cursor-pointer display text-lg">¿Sigmund da diagnóstico clínico?</summary><p class="mt-3 text-sm" style="color:var(--muted);">No. Sigmund evalúa personalidad (no patología). El diagnóstico clínico requiere licencia profesional — eso lo firma un humano. Themis + Hygea bloquean cualquier mensaje que pueda interpretarse como diagnóstico.</p></details>
+  <details class="card p-5 mb-3"><summary class="cursor-pointer display text-lg">¿Mis datos están seguros?</summary><p class="mt-3 text-sm" style="color:var(--muted);">Sí. Supabase con RLS multi-tenant, cumplimos Ley 19.628 (Chile) y RGPD-equivalente. Cada cliente ve solo lo suyo.</p></details>
+  <details class="card p-5 mb-3"><summary class="cursor-pointer display text-lg">¿Por qué 7 dimensiones, no 5 (Big Five)?</summary><p class="mt-3 text-sm" style="color:var(--muted);">Agregamos autoregulación y asertividad — dos dimensiones predictoras fuertes en contextos laborales que Big Five clásico no captura del todo.</p></details>
+  <details class="card p-5 mb-3"><summary class="cursor-pointer display text-lg">¿Cuánto demora una evaluación?</summary><p class="mt-3 text-sm" style="color:var(--muted);">15-25 minutos por candidato. El informe consolidado de Matusalem llega en otros 3-5 minutos.</p></details>
+</section>
+
+<!-- CTA FINAL -->
+<section class="px-5 sm:px-8 py-24 text-center reveal">
+  <h2 class="display text-5xl sm:text-7xl mb-6 leading-tight">¿Conversamos?<span style="color:var(--accent-2);">.</span></h2>
+  <p class="text-lg mb-10" style="color:var(--muted);max-width:480px;margin-left:auto;margin-right:auto;">14 días gratis del plan Pro. Sin tarjeta. Sin compromiso.</p>
+  <a href="https://argos.vecttore.com" class="btn-primary text-lg" style="padding:18px 32px;">Crear cuenta ahora →</a>
+</section>
+
+<footer class="text-center text-xs py-10 border-t" style="color:var(--muted);border-color:var(--border);">
+  <p>© PeopleTrust 2026 · hecho con cariño en Chile 🇨🇱</p>
+  <p class="mt-1">Maqueta K · combina A (chat) + J (narrativo) + H (cálido) + G (voz post-pago)</p>
+</footer>
+
+<script>
+// Theme toggle
+const themeBtn = document.getElementById('themeBtn');
+const iconSun = document.getElementById('iconSun');
+const iconMoon = document.getElementById('iconMoon');
+function syncIcons(){
+  const t = document.documentElement.dataset.theme;
+  iconSun.style.display = t === 'dark' ? 'inline' : 'none';
+  iconMoon.style.display = t === 'light' ? 'inline' : 'none';
+}
+themeBtn.addEventListener('click', () => {
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem('pt-theme', t);
+  syncIcons();
+});
+syncIcons();
+
+// Chat Valentina (sales doctrine VAL)
+const chatLog = document.getElementById('chatLog');
+const form = document.getElementById('form');
+const input = document.getElementById('input');
+const micBtn = document.getElementById('micBtn');
+
+function addMsg(role, html){
+  const div = document.createElement('div');
+  div.className = role === 'val' ? 'bubble-val text-sm' : 'bubble-user text-sm';
+  div.innerHTML = html;
+  chatLog.appendChild(div);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+function thinking(){
+  const div = document.createElement('div');
+  div.className = 'bubble-val typing inline-block';
+  div.id = 'thk';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chatLog.appendChild(div);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+function stopThk(){ document.getElementById('thk')?.remove(); }
+
+function reply(msg){
+  const m = msg.toLowerCase();
+  if(/caro|much[oa] (plata|dinero)|no (tengo|puedo pagar)/.test(m))
+    return `Una mala contratación cuesta 6-12 sueldos. El plan Pro a $49/mes paga UNA evaluación que evite ese error. Y si recién empiezas, <b>Free</b> da 10 evals/mes sin tarjeta.`;
+  if(/ahora no|m[aá]s adelante|despu[eé]s/.test(m))
+    return `Sin apuro. ¿Te dejo el material en mail? Hablar conmigo siempre es gratis cuando vuelvas.`;
+  if(/c[oó]mo (me )?registr|empezar|trial|probar/.test(m))
+    return `¡Genial! Crear cuenta en <a href="https://argos.vecttore.com" class="dashed-link">argos.vecttore.com</a> toma 30 segundos. Plan Free sin tarjeta.`;
+  if(/precio|costo|cuanto|plan/.test(m))
+    return `Tres planes: <b>Free</b> $0 (10 evals) · <b>Pro</b> $49/mes (200 evals + voz) · <b>Enterprise</b> custom. ¿Para qué proceso lo necesitas?`;
+  if(/evaluar|candidato|t[eé]cnic/.test(m))
+    return `Cuéntame: ¿cuántos procesos por mes manejas y qué rol más frecuente? Te recomiendo el plan justo (sin venderte de más).`;
+  if(/turnover|mala contrataci|equivoc/.test(m))
+    return `Pasa más de lo que se cree. Sigmund (personalidad) + Smith (laboral) bajan ese error fuerte. ¿Te cuento cómo?`;
+  if(/qui[eé]nes? son|equipo|peopletrust/.test(m))
+    return `PeopleTrust 🇨🇱 — evaluación psicolaboral con agentes IA y supervisión humana. Mira la sección "El equipo" abajo para conocernos.`;
+  if(/seguro|datos|privacidad|legal/.test(m))
+    return `Supabase con RLS multi-tenant. Cumplimos Ley 19.628 + RGPD-equivalente. Ningún agente da diagnóstico clínico (humanos firman handoffs).`;
+  if(/voz|hablar|elevenlabs/.test(m))
+    return `La voz natural (ElevenLabs) es parte del plan <b>Pro</b>. En Free conversamos por texto, gratis siempre.`;
+  if(/contact|humano|email|mail/.test(m))
+    return `Escribe a <a href="mailto:hola@peopletrust.cl" class="dashed-link">hola@peopletrust.cl</a> · respondemos en menos de 24h hábiles.`;
+  if(/^(hola|hi|buen)/.test(m))
+    return `¡Hola! Soy Valentina 👋 Cuéntame qué necesitas. Hablar conmigo es <b>gratis siempre</b>.`;
+  return `Te ayudo con: evaluaciones, precios, equipo, contacto. ¿Cuál te interesa?`;
+}
+
+function send(text){
+  if(!text.trim()) return;
+  addMsg('user', text);
+  input.value = '';
+  thinking();
+  setTimeout(() => { stopThk(); addMsg('val', reply(text)); }, 600 + Math.random()*400);
+}
+
+form.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
+document.querySelectorAll('.sug').forEach(b => b.addEventListener('click', () => send(b.dataset.msg)));
+micBtn.addEventListener('click', () => addMsg('val', 'La voz es parte del plan <b>Pro</b> (ElevenLabs). Por ahora escríbeme 💬'));
+
+// Reveal on scroll
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target);} }), { threshold:.15 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body></html>

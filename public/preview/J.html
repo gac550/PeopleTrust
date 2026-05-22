@@ -74,7 +74,7 @@
       <p class="text-[10px] text-emerald-300 mb-3 px-2 font-medium">Conversar conmigo es gratis · siempre · sin signup</p>
       <div id="chat" class="chat-scroll min-h-[140px] max-h-[34vh] overflow-y-auto px-2 py-2 space-y-3 mb-2">
         <div class="bubble bg-white/5 rounded-2xl rounded-tl-md px-3.5 py-2.5 text-sm text-slate-100">
-          Decime, ¿qué necesitás? Puedo evaluar candidatos, mostrarte precios o conectarte con el equipo.
+          Cuéntame, ¿qué necesitas? Puedo evaluar candidatos, mostrarte precios o conectarte con el equipo.
         </div>
       </div>
       <div id="suggestions" class="flex flex-wrap gap-2 px-2 mb-2">
@@ -83,7 +83,7 @@
         <button class="sug text-xs px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10" data-msg="Demo del equipo">→ conocer agentes</button>
       </div>
       <form id="form" class="flex items-end gap-2 p-2">
-        <input id="input" placeholder="Escribí aquí…" class="flex-1 bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5"/>
+        <input id="input" placeholder="Escribe aquí…" class="flex-1 bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5"/>
         <button type="button" id="micBtn" class="w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10 opacity-50" aria-label="Voz · plan Pro" title="Voz Valentina · disponible con plan Pro (ElevenLabs)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
         </button>
@@ -142,7 +142,7 @@
 <!-- CAP 3: PRECIOS -->
 <section id="precios" class="px-5 sm:px-10 py-20 max-w-5xl mx-auto reveal">
   <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 3 · Planes</p>
-  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-10">Empezá gratis. Escalá cuando quieras.</h2>
+  <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-10">Empieza gratis. Escalá cuando quieras.</h2>
   <div class="grid sm:grid-cols-3 gap-4">
     <div class="glass rounded-2xl p-6"><div class="text-violet-300 text-xs mb-1 uppercase tracking-wider">Free</div><div class="text-3xl font-bold mb-3">$0<span class="text-sm font-normal text-slate-400"> siempre</span></div><ul class="text-sm text-slate-300 space-y-2"><li>· 10 evaluaciones/mes</li><li>· Agentes core</li><li>· Informes básicos</li></ul><a href="https://argos.vecttore.com" class="block mt-6 text-center py-2.5 rounded-xl border border-white/10 hover:bg-white/5">Empezar</a></div>
     <div class="rounded-2xl p-6 relative" style="background:linear-gradient(135deg,rgba(168,85,247,.18),rgba(124,58,237,.08));border:1px solid rgba(168,85,247,.5)"><div class="absolute -top-2 left-6 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-violet-500 text-white">Más popular</div><div class="text-violet-200 text-xs mb-1 uppercase tracking-wider">Pro</div><div class="text-3xl font-bold mb-3">$49<span class="text-sm font-normal text-slate-400">/mes</span></div><ul class="text-sm text-slate-200 space-y-2"><li>· 200 evaluaciones/mes</li><li>· Todos los agentes</li><li>· API access · soporte</li></ul><a href="https://argos.vecttore.com" class="block mt-6 text-center py-2.5 rounded-xl text-white font-medium" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">14 días gratis</a></div>
@@ -162,7 +162,7 @@
 
 <!-- CAP 5: CTA FINAL -->
 <section class="px-5 sm:px-10 py-24 text-center reveal">
-  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 5 · Empezá ahora</p>
+  <p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Capítulo 5 · Empieza ahora</p>
   <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight mb-6">¿Listo?</h2>
   <p class="text-slate-300 max-w-md mx-auto mb-8">14 días gratis del plan Pro. Sin tarjeta. Hasta 200 evaluaciones para probar todo.</p>
   <a href="https://argos.vecttore.com" class="inline-block px-8 py-4 rounded-xl text-white font-semibold" style="background:linear-gradient(135deg,#a855f7,#7c3aed);box-shadow:0 14px 36px rgba(168,85,247,.4)">Crear cuenta gratis →</a>
@@ -190,11 +190,11 @@ function reply(m){m=m.toLowerCase();
   if(/ahora no|m[aá]s adelante|despu[eé]s/.test(m))return`Sin apuro. ¿Te dejo material en mail? Hablar conmigo siempre es gratis cuando vuelvas.`;
   if(/c[oó]mo (me )?registr|empezar|trial|probar/.test(m))return`¡Vamos! <a href="https://argos.vecttore.com" class="text-violet-300 underline font-medium">argos.vecttore.com</a> · 30 seg · plan Free sin tarjeta.`;
   if(/precio|costo|cuanto|plan/.test(m))return`<b>Free</b> $0 · <b>Pro</b> $49/mes (más elegido) · <b>Enterprise</b> custom. <a href="#precios" class="text-violet-300 underline">tabla completa abajo</a> ↓`;
-  if(/evaluar|candidato|t[eé]cnic|liderazg/.test(m))return`Genial. Contame: ¿cuántos procesos/mes y qué rol más frecuente? Así te recomiendo plan justo (sin venderte de más).`;
+  if(/evaluar|candidato|t[eé]cnic|liderazg/.test(m))return`Genial. Cuéntame: ¿cuántos procesos/mes y qué rol más frecuente? Así te recomiendo plan justo (sin venderte de más).`;
   if(/turnover|mala contratac|equivoc|salida|renunci/.test(m))return`Eso pasa más de lo que se cree. Sigmund (personalidad) + Smith (laboral) bajan ese error fuerte. ¿Querés que te cuente cómo?`;
-  if(/equipo|agente|conoce/.test(m))return`Bajá un poco 👇 hay 6 agentes con superpoderes distintos.`;
+  if(/equipo|agente|conoce/.test(m))return`Baja un poco 👇 hay 6 agentes con superpoderes distintos.`;
   if(/seguro|datos|privacidad|legal/.test(m))return`Supabase con RLS multi-tenant. Cumplimos Ley 19.628 + RGPD. Ningún agente da diagnóstico clínico (humanos firman handoffs críticos).`;
-  if(/contact|humano|hablar/.test(m))return`Escribime a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> o dejame tu mail.`;
+  if(/contact|humano|hablar/.test(m))return`Escríbeme a <a href="mailto:hola@peopletrust.cl" class="text-violet-300 underline">hola@peopletrust.cl</a> o déjame tu mail.`;
   if(/no entiendo|no me queda claro/.test(m))return`Perdón, lo digo simple: somos como tu equipo RRHH IA que ayuda a no equivocarte al contratar. ¿Qué parte te aclaro?`;
   if(/^(hola|hi|hey|buen)/.test(m))return`¡Hola! Soy Valentina 👋 ¿Qué te trae? Evals, precios, equipo, lo que sea. <b>Gratis siempre.</b>`;
   return`Buena. Te ayudo con: evaluaciones, precios, equipo, contacto. ¿Cuál?`;
@@ -204,7 +204,7 @@ form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
 document.querySelectorAll('.sug').forEach(b=>b.addEventListener('click',()=>send(b.dataset.msg)));
 
 // Voz mic locked en MVP — activa con plan Pro (ElevenLabs).
-micBtn.addEventListener('click',()=>{addMsg('valentina','Voz es parte del plan <b>Pro</b> (ElevenLabs). Por ahora escribime 💬');});
+micBtn.addEventListener('click',()=>{addMsg('valentina','Voz es parte del plan <b>Pro</b> (ElevenLabs). Por ahora escríbeme 💬');});
 
 // Reveal on scroll
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}}),{threshold:.12});

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const MAQUETAS: { label: string; src: string; title: string }[] = [
+  { label: '⌂', src: '/preview/home.html', title: 'Home · default · hub de accesos' },
   { label: 'A', src: '/preview/A.html', title: 'A · Pi.ai chat' },
   { label: 'B', src: '/preview/B.html', title: 'B · Apple cinemática' },
   { label: 'C', src: '/preview/C.html', title: 'C · Linear bento' },
@@ -18,14 +19,15 @@ const MAQUETAS: { label: string; src: string; title: string }[] = [
 ]
 
 export default function HomePage() {
-  const [active, setActive] = useState<string>('A')
+  const [active, setActive] = useState<string>('⌂')
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
   const [busterTs, setBusterTs] = useState<number>(0)
   const frameRef = useRef<HTMLIFrameElement>(null)
   const tabsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const hash = (location.hash || '#A').replace('#', '').toUpperCase()
+    const raw = (location.hash || '#⌂').replace('#', '')
+    const hash = raw === '⌂' || raw === '%E2%8C%82' ? '⌂' : raw.toUpperCase()
     if (MAQUETAS.find((m) => m.label === hash)) setActive(hash)
     const saved = (localStorage.getItem('pt-theme') as 'light' | 'dark') || 'light'
     setTheme(saved)

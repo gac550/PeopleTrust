@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Home · PeopleTrust</title>
+<meta http-equiv="Cache-Control" content="no-store" />
+<script>
+(function(){
+  const q = new URL(location.href).searchParams.get('theme');
+  document.documentElement.dataset.theme = q || localStorage.getItem('pt-theme') || 'light';
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root[data-theme="light"]{ --bg:#fbfbfd; --bg-2:#f5f5f7; --fg:#1d1d1f; --muted:#6e6e73; --accent:#0071e3; --accent-2:#22c55e; --card:#fff; --border:#d2d2d7; }
+:root[data-theme="dark"]{ --bg:#000; --bg-2:#0a0a0c; --fg:#f5f5f7; --muted:#86868b; --accent:#0a84ff; --accent-2:#30d158; --card:#1c1c1e; --border:#2c2c2e; }
+*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg);margin:0;font-family:'SF Pro Text',-apple-system,BlinkMacSystemFont,'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+.sf-display{font-family:'SF Pro Display',-apple-system,'Inter',sans-serif;letter-spacing:-.025em;font-weight:600;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:980px;font-weight:500;font-size:15px;transition:.2s;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-ghost{border:1px solid var(--border);color:var(--fg);}
+.btn-ghost:hover{background:var(--bg-2);}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--bg-2);font-size:12px;color:var(--muted);font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<main class="max-w-5xl mx-auto px-6 py-16">
+
+  <!-- HERO -->
+  <section class="text-center mb-16">
+    <span class="chip mb-6">Hub · 12 maquetas activas</span>
+    <h1 class="sf-display text-5xl sm:text-7xl mb-5 leading-[.95]">PeopleTrust<span style="color:var(--accent-2);">.</span></h1>
+    <p class="text-xl sm:text-2xl mb-8" style="color:var(--muted);font-weight:300;max-width:600px;margin-left:auto;margin-right:auto;">
+      Galería interactiva de propuestas de landing para evaluación psicolaboral con agentes IA.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center mb-12">
+      <a href="/#L" class="btn btn-primary">Ver maqueta L · Apple + voz →</a>
+      <a href="/#K" class="btn btn-ghost">Ver maqueta K · combinada</a>
+    </div>
+  </section>
+
+  <!-- Grid de accesos rápidos -->
+  <section class="mb-16">
+    <p class="chip mb-4">Accesos rápidos · alfabético</p>
+    <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+      <a href="/#A" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">A</div><div class="text-[10px]" style="color:var(--muted);">Pi.ai chat</div></a>
+      <a href="/#B" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">B</div><div class="text-[10px]" style="color:var(--muted);">Apple cinemática</div></a>
+      <a href="/#C" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">C</div><div class="text-[10px]" style="color:var(--muted);">Linear bento</div></a>
+      <a href="/#D" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">D</div><div class="text-[10px]" style="color:var(--muted);">Stripe mesh</div></a>
+      <a href="/#E" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">E</div><div class="text-[10px]" style="color:var(--muted);">ChatGPT minimal</div></a>
+      <a href="/#F" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">F</div><div class="text-[10px]" style="color:var(--muted);">Character galería</div></a>
+      <a href="/#G" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">G</div><div class="text-[10px]" style="color:var(--muted);">Hume voz-first</div></a>
+      <a href="/#H" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">H</div><div class="text-[10px]" style="color:var(--muted);">Notion cálido</div></a>
+      <a href="/#I" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">I</div><div class="text-[10px]" style="color:var(--muted);">Replicate demo</div></a>
+      <a href="/#J" class="card p-4 text-center hover:border-[color:var(--accent)] transition"><div class="sf-display text-2xl mb-1">J</div><div class="text-[10px]" style="color:var(--muted);">híbrido scroll</div></a>
+      <a href="/#K" class="card p-4 text-center hover:border-[color:var(--accent-2)] transition" style="border-color:var(--accent-2);"><div class="sf-display text-2xl mb-1">K</div><div class="text-[10px]" style="color:var(--accent-2);">combinada ★</div></a>
+      <a href="/#L" class="card p-4 text-center hover:border-[color:var(--accent-2)] transition" style="border-color:var(--accent-2);"><div class="sf-display text-2xl mb-1">L</div><div class="text-[10px]" style="color:var(--accent-2);">Apple + voz ★</div></a>
+    </div>
+    <p class="text-xs mt-4" style="color:var(--muted);">Usa las flechas ← → del teclado para navegar entre maquetas.</p>
+  </section>
+
+  <!-- Info MVP -->
+  <section class="card p-8 mb-12">
+    <p class="chip mb-3">MVP · 14 días</p>
+    <h2 class="sf-display text-3xl mb-3">Estamos construyendo el MVP.</h2>
+    <p style="color:var(--muted);" class="mb-4">Plataforma de evaluación psicolaboral conducida por <strong style="color:var(--fg);">Valentina</strong> (recepción), <strong style="color:var(--fg);">Sigmund</strong> (personalidad), <strong style="color:var(--fg);">Smith</strong> (laboral) y un equipo de seis agentes IA con supervisión humana.</p>
+    <p style="color:var(--muted);">Hablar con Valentina es <strong style="color:var(--fg);">gratis siempre</strong>. La voz natural (ElevenLabs) viene con el plan Pro.</p>
+  </section>
+
+  <!-- Links útiles -->
+  <section class="text-center mb-8">
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="https://argos.vecttore.com" class="btn btn-primary">Acceder al admin →</a>
+      <a href="mailto:hola@peopletrust.cl" class="btn btn-ghost">hola@peopletrust.cl</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="text-center text-xs py-8 border-t" style="color:var(--muted);border-color:var(--border);">
+  © PeopleTrust 2026 · Home · hecho con cariño en Chile 🇨🇱
+</footer>
+
+</body></html>

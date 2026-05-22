@@ -3,100 +3,123 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Maqueta L · Apple Vision + chat Valentina · PeopleTrust</title>
+<title>Maqueta L · Apple Vision + parallax + Valentina · PeopleTrust</title>
 <meta http-equiv="Cache-Control" content="no-store" />
 <script>
 (function(){
-  const url = new URL(location.href);
-  const q = url.searchParams.get('theme');
+  const q = new URL(location.href).searchParams.get('theme');
   document.documentElement.dataset.theme = q || localStorage.getItem('pt-theme') || 'light';
 })();
 </script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root[data-theme="light"]{
-  --bg:#fbfbfd;          /* Apple off-white */
-  --bg-2:#f5f5f7;        /* Apple soft gray */
-  --fg:#1d1d1f;          /* Apple near-black */
-  --muted:#6e6e73;       /* Apple gray text */
-  --accent:#0071e3;      /* Apple blue */
-  --accent-2:#22c55e;    /* Valentina green */
-  --card:#ffffff;
-  --border:#d2d2d7;
-  --shadow:0 30px 80px -20px rgba(0,0,0,.12);
-  --hero-grad:linear-gradient(180deg, #fbfbfd 0%, #ecedef 50%, #fbfbfd 100%);
+  --bg:#fbfbfd; --bg-2:#f5f5f7; --fg:#1d1d1f; --muted:#6e6e73;
+  --accent:#0071e3; --accent-2:#22c55e; --card:#ffffff; --border:#d2d2d7;
+  --shadow:0 30px 80px -20px rgba(0,0,0,.15);
+  --halo-1:radial-gradient(closest-side, rgba(34,197,94,.35), transparent 70%);
+  --halo-2:radial-gradient(closest-side, rgba(0,113,227,.20), transparent 70%);
+  --halo-3:radial-gradient(closest-side, rgba(251,191,36,.18), transparent 70%);
 }
 :root[data-theme="dark"]{
-  --bg:#000000;
-  --bg-2:#0a0a0c;
-  --fg:#f5f5f7;
-  --muted:#86868b;
-  --accent:#0a84ff;
-  --accent-2:#30d158;
-  --card:#1c1c1e;
-  --border:#2c2c2e;
+  --bg:#000; --bg-2:#0a0a0c; --fg:#f5f5f7; --muted:#86868b;
+  --accent:#0a84ff; --accent-2:#30d158; --card:#1c1c1e; --border:#2c2c2e;
   --shadow:0 30px 80px -20px rgba(0,0,0,.6);
-  --hero-grad:radial-gradient(120% 80% at 50% 0%, #1a1a1f 0%, #000 60%);
+  --halo-1:radial-gradient(closest-side, rgba(48,209,88,.42), transparent 70%);
+  --halo-2:radial-gradient(closest-side, rgba(10,132,255,.30), transparent 70%);
+  --halo-3:radial-gradient(closest-side, rgba(251,191,36,.18), transparent 70%);
 }
 *{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
-html,body{background:var(--bg);color:var(--fg);margin:0;transition:background-color .3s,color .3s;font-family:'SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-.sf-display{font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-.025em;font-weight:600;}
-.cap{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:8rem 1.5rem;text-align:center;position:relative;}
-.hero-grad{background:var(--hero-grad);}
-.reveal{opacity:0;transform:translateY(60px);transition:opacity 1.2s cubic-bezier(.16,1,.3,1), transform 1.2s cubic-bezier(.16,1,.3,1);}
-.reveal.on{opacity:1;transform:translateY(0);}
-.btn-primary{background:var(--accent);color:#fff;border-radius:980px;padding:12px 28px;font-size:17px;font-weight:400;transition:background-color .2s,transform .15s;display:inline-flex;align-items:center;gap:8px;line-height:1;}
-.btn-primary:hover{background:color-mix(in srgb,var(--accent) 88%, white);}
-.btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:980px;padding:12px 28px;font-size:17px;font-weight:400;transition:.2s;display:inline-flex;align-items:center;gap:8px;line-height:1;}
+html{scroll-behavior:smooth}
+html,body{background:var(--bg);color:var(--fg);margin:0;font-family:'SF Pro Text',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.sf-display{font-family:'SF Pro Display',-apple-system,'Segoe UI',sans-serif;letter-spacing:-.028em;font-weight:600;}
+
+/* ─── HERO con parallax ─── */
+.hero{position:relative;min-height:100svh;overflow:hidden;}
+.hero-inner{position:relative;z-index:2;padding-top:100px;padding-bottom:80px;}
+
+/* Halos parallax (3 capas a velocidades distintas) */
+.halo{position:absolute;border-radius:50%;pointer-events:none;will-change:transform;}
+.halo-1{width:680px;height:680px;background:var(--halo-1);top:-200px;left:50%;transform:translateX(-50%);filter:blur(20px);}
+.halo-2{width:520px;height:520px;background:var(--halo-2);bottom:-100px;right:-100px;filter:blur(30px);}
+.halo-3{width:420px;height:420px;background:var(--halo-3);top:200px;left:-120px;filter:blur(35px);}
+
+/* Avatar Valentina ROTANDO con halos */
+.av-stage{position:relative;display:grid;place-items:center;width:100%;will-change:transform;}
+.av-disc{width:min(56vw, 360px);aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,#22c55e 0%,#16a34a 70%,#15803d 100%);display:grid;place-items:center;box-shadow:0 40px 120px -20px rgba(34,197,94,.55), inset 0 -30px 60px -20px rgba(0,0,0,.2);position:relative;animation:floatY 6s ease-in-out infinite;}
+.av-disc svg{width:50%;height:50%;}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+.av-ring{position:absolute;inset:-20px;border-radius:50%;border:1.5px solid rgba(34,197,94,.4);animation:halo 4s ease-in-out infinite;}
+.av-ring.r2{inset:-44px;animation-delay:1.3s;opacity:.5;}
+.av-ring.r3{inset:-68px;animation-delay:2.6s;opacity:.25;}
+@keyframes halo{0%,100%{transform:scale(.96);opacity:.5}50%{transform:scale(1.04);opacity:.15}}
+
+.av-orbit{position:absolute;inset:-32px;border-radius:50%;border:1px dashed rgba(34,197,94,.3);animation:rot 24s linear infinite;}
+@keyframes rot{to{transform:rotate(360deg)}}
+.av-orbit::before{content:'';position:absolute;top:-6px;left:50%;width:12px;height:12px;border-radius:50%;background:var(--accent-2);transform:translateX(-50%);box-shadow:0 0 16px var(--accent-2);}
+
+/* Chat bubbles flotantes alrededor de Valentina (microcopy) */
+.float-bubble{position:absolute;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);padding:10px 14px;border-radius:18px;font-size:13px;animation:floatBub 5s ease-in-out infinite;backdrop-filter:blur(10px);}
+.float-bubble.b1{top:8%;left:-4%;border-radius:18px 18px 18px 4px;animation-delay:.3s;}
+.float-bubble.b2{top:38%;right:-8%;border-radius:18px 18px 4px 18px;animation-delay:1.5s;}
+.float-bubble.b3{bottom:18%;left:-8%;border-radius:18px 4px 18px 18px;animation-delay:2.8s;}
+@keyframes floatBub{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* Botones Apple */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:980px;font-size:17px;font-weight:400;transition:.2s;cursor:pointer;line-height:1;border:none;font-family:inherit;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);}
 .btn-ghost:hover{background:color-mix(in srgb,var(--accent) 8%, transparent);}
-.btn-link{color:var(--accent);font-size:17px;display:inline-flex;align-items:center;gap:4px;}
-.btn-link:hover{text-decoration:underline;}
-.eyebrow{font-size:15px;color:var(--muted);font-weight:400;margin-bottom:1rem;}
-h1.hero{font-size:clamp(48px,8vw,96px);line-height:1.04;font-weight:600;}
-h2.huge{font-size:clamp(40px,6vw,72px);line-height:1.05;font-weight:600;}
-.card{background:var(--card);border-radius:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
-/* Chat */
-.bubble-val{background:var(--bg-2);border-radius:20px 20px 20px 4px;padding:12px 16px;font-size:15px;line-height:1.45;animation:rise .5s cubic-bezier(.16,1,.3,1) both;max-width:88%;}
-.bubble-user{background:var(--accent);color:#fff;border-radius:20px 20px 4px 20px;padding:12px 16px;font-size:15px;line-height:1.45;animation:rise .5s cubic-bezier(.16,1,.3,1) both;max-width:88%;margin-left:auto;}
+
+.eyebrow{font-size:14px;color:var(--muted);font-weight:500;letter-spacing:.05em;text-transform:uppercase;}
+h1.hero-title{font-size:clamp(48px,7.5vw,92px);line-height:1.02;font-weight:600;letter-spacing:-.03em;}
+h2.huge{font-size:clamp(40px,6vw,72px);line-height:1.05;font-weight:600;letter-spacing:-.025em;}
+
+/* Chat panel hero */
+.chat-card{background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:20px;backdrop-filter:blur(20px);}
+.bubble-val{background:var(--bg-2);border-radius:18px 18px 18px 4px;padding:11px 15px;font-size:14.5px;line-height:1.45;animation:rise .5s cubic-bezier(.16,1,.3,1) both;max-width:88%;}
+.bubble-user{background:var(--accent);color:#fff;border-radius:18px 18px 4px 18px;padding:11px 15px;font-size:14.5px;line-height:1.45;animation:rise .5s cubic-bezier(.16,1,.3,1) both;max-width:88%;margin-left:auto;}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--muted);margin:0 2px;animation:typ 1.2s infinite;}
+.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--muted);margin:0 2px;animation:typ 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.18s}.typing span:nth-child(3){animation-delay:.36s}
 @keyframes typ{0%,80%,100%{opacity:.3;transform:scale(.7)}40%{opacity:1;transform:scale(1)}}
-/* Mic active */
 .mic-on{background:var(--accent-2)!important;color:#fff!important;border-color:transparent!important;animation:micpulse 1.4s infinite;}
 @keyframes micpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent-2) 60%, transparent)}70%{box-shadow:0 0 0 14px transparent}100%{box-shadow:0 0 0 0 transparent}}
-/* Avatar Valentina */
-.av-hero{width:220px;height:220px;border-radius:50%;background:radial-gradient(closest-side,#22c55e 0%,#16a34a 70%,#15803d 100%);display:grid;place-items:center;box-shadow:0 30px 100px -20px rgba(34,197,94,.5);position:relative;}
-.av-hero::before,.av-hero::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px solid color-mix(in srgb,#22c55e 40%, transparent);animation:halo 4s ease-in-out infinite;}
-.av-hero::after{animation-delay:2s;inset:-32px;opacity:.5;}
-@keyframes halo{0%,100%{transform:scale(.96);opacity:.6}50%{transform:scale(1.04);opacity:.2}}
-.av-mini{width:48px;height:48px;border-radius:50%;background:radial-gradient(closest-side,#22c55e,#15803d);display:grid;place-items:center;flex-shrink:0;}
 .status-dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2);display:inline-block;animation:pulse 2s infinite;}
 @keyframes pulse{50%{opacity:.4}}
-/* Voice wave */
-.wave{display:inline-flex;align-items:flex-end;gap:3px;height:14px;}
+.wave{display:inline-flex;align-items:flex-end;gap:3px;height:12px;}
 .wave span{display:block;width:2.5px;background:var(--accent-2);border-radius:2px;animation:w 1s ease-in-out infinite;}
 .wave span:nth-child(1){height:30%;animation-delay:0s}.wave span:nth-child(2){height:60%;animation-delay:.1s}
 .wave span:nth-child(3){height:90%;animation-delay:.2s}.wave span:nth-child(4){height:50%;animation-delay:.3s}.wave span:nth-child(5){height:70%;animation-delay:.4s}
 @keyframes w{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
-/* Header */
+
+/* Sticky reveal sections (parallax style scroll) */
+.scene{position:relative;padding:120px 1.5rem;max-width:1100px;margin:0 auto;}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal.on{opacity:1;transform:translateY(0);}
+.parallax-slow{will-change:transform;}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:1.75rem;}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--bg-2);font-size:12px;color:var(--muted);font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;}
+
 .nav-blur{background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);}
 .iconbtn{width:38px;height:38px;border-radius:50%;background:transparent;border:none;color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:background-color .15s;}
 .iconbtn:hover{background:var(--bg-2);}
-.chip{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--bg-2);font-size:13px;color:var(--muted);}
-section{position:relative;}
+.av-mini{width:48px;height:48px;border-radius:50%;background:radial-gradient(closest-side,#22c55e,#15803d);display:grid;place-items:center;flex-shrink:0;}
 </style>
 </head>
 <body>
 
-<!-- HEADER nav (Apple-style minimal) -->
+<!-- HEADER -->
 <header class="nav-blur sticky top-0 z-50 h-12 flex items-center justify-between px-5 sm:px-8 border-b" style="border-color:var(--border);">
   <a href="/" class="flex items-center gap-2" aria-label="Inicio">
     <div class="w-7 h-7 rounded-lg" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div>
     <span class="sf-display text-base">PeopleTrust</span>
   </a>
   <nav class="hidden sm:flex items-center gap-7 text-[13px]" style="color:var(--muted);">
-    <a class="hover:text-[color:var(--fg)]" href="#hero">Valentina</a>
+    <a class="hover:text-[color:var(--fg)]" href="#chat">Valentina</a>
     <a class="hover:text-[color:var(--fg)]" href="#como">Cómo funciona</a>
     <a class="hover:text-[color:var(--fg)]" href="#equipo">Equipo</a>
     <a class="hover:text-[color:var(--fg)]" href="#precios">Precios</a>
@@ -111,175 +134,191 @@ section{position:relative;}
   </div>
 </header>
 
-<!-- HERO cinemático -->
-<section id="hero" class="cap hero-grad reveal on">
-  <div class="eyebrow">PeopleTrust · presenta</div>
-  <h1 class="sf-display hero mb-6">Tu próxima contratación,<br/><span style="color:var(--accent-2);">decidida con calma</span><span style="color:var(--muted);">.</span></h1>
-  <p class="text-xl sm:text-2xl mt-2 mb-10" style="color:var(--muted);max-width:680px;font-weight:300;">Un equipo de agentes IA conducidos por Valentina. Conversación gratis, evidencia clínica, decisión humana.</p>
-  <div class="flex flex-wrap gap-3 justify-center mb-16">
-    <a href="#chat" class="btn-primary">Conversar con Valentina</a>
-    <a href="https://argos.vecttore.com" class="btn-link">Crear cuenta gratis <span aria-hidden="true">›</span></a>
-  </div>
+<!-- HERO con Valentina VISIBLE inmediato + parallax + chat lateral -->
+<section class="hero">
+  <!-- Halos parallax -->
+  <div class="halo halo-1 parallax-slow" data-speed="0.3"></div>
+  <div class="halo halo-2 parallax-slow" data-speed="0.5"></div>
+  <div class="halo halo-3 parallax-slow" data-speed="0.2"></div>
 
-  <!-- Avatar Valentina con halos -->
-  <div class="av-hero mt-6">
-    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round">
-      <rect x="3" y="11" width="18" height="10" rx="2"/>
-      <circle cx="12" cy="5" r="2"/>
-      <path d="M12 7v4"/>
-      <line x1="8" y1="16" x2="8" y2="16"/>
-      <line x1="16" y1="16" x2="16" y2="16"/>
-    </svg>
-  </div>
-  <p class="mt-8 text-base flex items-center gap-2" style="color:var(--muted);">
-    <span class="status-dot"></span> Valentina · disponible · gratis siempre
-  </p>
+  <div class="hero-inner max-w-7xl mx-auto px-5 sm:px-10">
+    <div class="grid lg:grid-cols-[1fr_440px] gap-10 lg:gap-16 items-center">
 
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs" style="color:var(--muted);">
-    <span>desplázate</span>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-</section>
+      <!-- Columna IZQ: Avatar Valentina ENORME + halos + bubbles flotantes -->
+      <div class="av-stage">
+        <div class="relative" style="width:min(56vw,360px);aspect-ratio:1;">
+          <div class="av-orbit"></div>
+          <div class="av-ring r3"></div>
+          <div class="av-ring r2"></div>
+          <div class="av-ring"></div>
+          <div class="av-disc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="10" rx="2"/>
+              <circle cx="12" cy="5" r="2"/>
+              <path d="M12 7v4"/>
+              <line x1="8" y1="16" x2="8" y2="16"/>
+              <line x1="16" y1="16" x2="16" y2="16"/>
+            </svg>
+          </div>
 
-<!-- CAP CHAT en vivo (integrado, con voz) -->
-<section id="chat" class="cap reveal" style="background:var(--bg-2);">
-  <div class="eyebrow">Capítulo I · habla con ella</div>
-  <h2 class="sf-display huge mb-8">¿Conversamos ahora?</h2>
+          <!-- Bubbles flotantes que ya muestran "habla" -->
+          <div class="float-bubble b1 hidden sm:block"><span class="status-dot mr-1.5"></span>"Hola, soy Valentina"</div>
+          <div class="float-bubble b2 hidden sm:block">"¿Cuántos procesos al mes?"</div>
+          <div class="float-bubble b3 hidden sm:block">"Conversar es gratis siempre"</div>
+        </div>
 
-  <div class="card w-full max-w-2xl p-5 sm:p-7 text-left">
-    <div class="flex items-center gap-3 mb-5">
-      <div class="av-mini">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+        <p class="sf-display text-2xl mt-10 text-center">Valentina</p>
+        <p class="text-sm mt-1 text-center flex items-center gap-2 justify-center" style="color:var(--muted);">
+          <span class="status-dot"></span> FrontOffice · disponible ahora
+        </p>
       </div>
-      <div class="flex-1">
-        <div class="sf-display text-lg">Valentina</div>
-        <div class="text-xs flex items-center gap-2" style="color:var(--muted);">
-          <span class="status-dot"></span> en línea
-          <span id="voiceState" class="hidden items-center gap-1.5 ml-2">
-            <span class="wave"><span></span><span></span><span></span><span></span><span></span></span>
-            <span style="color:var(--accent-2);">hablando…</span>
-          </span>
+
+      <!-- Columna DER: copy + chat interactivo -->
+      <div>
+        <span class="eyebrow">PeopleTrust · evaluación con IA</span>
+        <h1 class="sf-display hero-title mt-3 mb-5">
+          Conversa con<br/><span style="color:var(--accent-2);">Valentina</span><span style="color:var(--muted);">.</span>
+        </h1>
+        <p class="text-lg sm:text-xl mb-7" style="color:var(--muted);font-weight:300;line-height:1.45;">
+          Tu primer contacto en una evaluación psicolaboral.
+          Gratis siempre, sin signup. Te conecta con Sigmund y Smith cuando estés listo.
+        </p>
+
+        <!-- Chat compacto (visible inmediato) -->
+        <div class="chat-card mb-5">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="av-mini">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="sf-display text-base">Valentina</div>
+              <div class="text-xs flex items-center gap-2" style="color:var(--muted);">
+                <span class="status-dot"></span>
+                <span id="voiceState" class="hidden items-center gap-1.5">
+                  <span class="wave"><span></span><span></span><span></span><span></span><span></span></span>
+                  <span style="color:var(--accent-2);">hablando…</span>
+                </span>
+                <span id="idleState">en línea</span>
+              </div>
+            </div>
+            <button id="voiceToggleBtn" class="iconbtn" title="Activar/desactivar voz" aria-label="Voz" aria-pressed="true">
+              <svg id="iconSpeakOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              <svg id="iconSpeakOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            </button>
+          </div>
+
+          <div id="chatLog" class="space-y-2.5 min-h-[140px] max-h-[280px] overflow-y-auto mb-3">
+            <div class="bubble-val">Hola. Cuéntame, ¿qué tipo de proceso de selección manejas? Te ayudo a elegir el plan justo.</div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            <button class="sug chip cursor-pointer hover:bg-[color:var(--card)]" data-msg="cuánto cuesta">cuánto cuesta</button>
+            <button class="sug chip cursor-pointer hover:bg-[color:var(--card)]" data-msg="evaluar técnico">evaluar técnico</button>
+            <button class="sug chip cursor-pointer hover:bg-[color:var(--card)]" data-msg="tengo turnover">tengo turnover</button>
+          </div>
+
+          <form id="form" class="flex items-center gap-2">
+            <input id="input" placeholder="Escribe o usa el micrófono…" class="flex-1 px-3 py-2.5 rounded-2xl text-sm" style="background:var(--bg-2);border:1px solid var(--border);color:var(--fg);outline:none;font-family:inherit;"/>
+            <button type="button" id="micBtn" class="iconbtn" style="background:var(--bg-2);border:1px solid var(--border);" title="Hablar por voz" aria-label="Voz">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+            </button>
+            <button type="submit" class="iconbtn" style="background:var(--accent);color:#fff;" aria-label="Enviar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a href="https://argos.vecttore.com" class="btn btn-primary">Crear cuenta gratis</a>
+          <a href="#como" class="btn btn-ghost">Cómo funciona</a>
         </div>
       </div>
-      <button id="voiceToggleBtn" class="iconbtn" title="Activar/desactivar voz" aria-label="Voz" aria-pressed="true">
-        <svg id="iconSpeakOn" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-        <svg id="iconSpeakOff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-      </button>
-    </div>
-
-    <div id="chatLog" class="space-y-3 min-h-[200px] max-h-[40vh] overflow-y-auto mb-4">
-      <div class="bubble-val">
-        Hola. Cuéntame, ¿qué tipo de proceso de selección manejas? Te recomiendo el plan que mejor se ajuste.
-      </div>
-    </div>
-
-    <div class="flex flex-wrap gap-2 mb-4">
-      <button class="sug chip cursor-pointer hover:bg-[color:var(--card)]" data-msg="cuánto cuesta">cuánto cuesta</button>
-      <button class="sug chip cursor-pointer hover:bg-[color:var(--card)]" data-msg="evaluar candidato técnico">evaluar técnico</button>
-      <button class="sug chip cursor-pointer hover:bg-[color:var(--card)]" data-msg="tengo turnover">tengo turnover</button>
-    </div>
-
-    <form id="form" class="flex items-center gap-2">
-      <input id="input" placeholder="Escribe o usa el micrófono…" class="flex-1 px-4 py-3 rounded-2xl text-[15px]" style="background:var(--bg-2);border:1px solid var(--border);color:var(--fg);outline:none;font-family:inherit;"/>
-      <button type="button" id="micBtn" class="iconbtn" style="background:var(--bg-2);border:1px solid var(--border);" title="Hablar por voz" aria-label="Voz">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-      </button>
-      <button type="submit" class="iconbtn" style="background:var(--accent);color:#fff;" aria-label="Enviar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-      </button>
-    </form>
-    <p class="text-[11px] mt-3" style="color:var(--muted);">Voz en demostración usa el sintetizador del navegador. En producción usamos voz de estudio (ElevenLabs) con el plan Pro.</p>
-  </div>
-</section>
-
-<!-- CAP CÓMO FUNCIONA -->
-<section id="como" class="cap reveal">
-  <div class="eyebrow">Capítulo II · cómo funciona</div>
-  <h2 class="sf-display huge mb-12">Tres pasos. Sin fricción.</h2>
-  <div class="grid sm:grid-cols-3 gap-6 max-w-5xl w-full">
-    <div class="card p-7 text-left">
-      <div class="text-[40px] sf-display mb-3" style="color:var(--accent);">01</div>
-      <h3 class="sf-display text-2xl mb-2">Valentina recibe</h3>
-      <p class="text-[15px]" style="color:var(--muted);">Conversación gratis para entender tu caso. Sin signup ni paywall.</p>
-    </div>
-    <div class="card p-7 text-left">
-      <div class="text-[40px] sf-display mb-3" style="color:var(--accent);">02</div>
-      <h3 class="sf-display text-2xl mb-2">Sigmund + Smith evalúan</h3>
-      <p class="text-[15px]" style="color:var(--muted);">Personalidad (7 dimensiones) y competencias laborales. Guardrails Themis y Hygea revisan cada turno.</p>
-    </div>
-    <div class="card p-7 text-left">
-      <div class="text-[40px] sf-display mb-3" style="color:var(--accent);">03</div>
-      <h3 class="sf-display text-2xl mb-2">Matusalem consolida</h3>
-      <p class="text-[15px]" style="color:var(--muted);">Informe único con recomendación. Albert deriva a psicólogo humano si aplica.</p>
     </div>
   </div>
 </section>
 
-<!-- CAP EQUIPO -->
-<section id="equipo" class="cap reveal" style="background:var(--bg-2);">
-  <div class="eyebrow">Capítulo III · el equipo</div>
-  <h2 class="sf-display huge mb-3">Seis agentes especialistas.</h2>
-  <p class="text-xl mb-12" style="color:var(--muted);font-weight:300;">Cada uno está entrenado para un rol específico.</p>
-  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-5xl w-full">
-    <div class="card p-6 text-left"><div class="w-12 h-12 rounded-full mb-4" style="background:var(--accent-2)"></div><div class="sf-display text-xl">Valentina</div><div class="text-xs uppercase tracking-wider mt-1" style="color:var(--accent-2);">FrontOffice</div></div>
-    <div class="card p-6 text-left"><div class="w-12 h-12 rounded-full mb-4" style="background:var(--accent-2)"></div><div class="sf-display text-xl">Sigmund</div><div class="text-xs uppercase tracking-wider mt-1" style="color:var(--accent-2);">Personalidad</div></div>
-    <div class="card p-6 text-left"><div class="w-12 h-12 rounded-full mb-4" style="background:var(--accent-2)"></div><div class="sf-display text-xl">Smith</div><div class="text-xs uppercase tracking-wider mt-1" style="color:var(--accent-2);">Laboral</div></div>
-    <div class="card p-6 text-left"><div class="w-12 h-12 rounded-full mb-4" style="background:#a855f7"></div><div class="sf-display text-xl">Miyagi</div><div class="text-xs uppercase tracking-wider mt-1" style="color:#a855f7;">Orquestador</div></div>
-    <div class="card p-6 text-left"><div class="w-12 h-12 rounded-full mb-4" style="background:#0ea5e9"></div><div class="sf-display text-xl">Matusalem</div><div class="text-xs uppercase tracking-wider mt-1" style="color:#0ea5e9;">Integrador</div></div>
-    <div class="card p-6 text-left"><div class="w-12 h-12 rounded-full mb-4" style="background:#0ea5e9"></div><div class="sf-display text-xl">Albert</div><div class="text-xs uppercase tracking-wider mt-1" style="color:#0ea5e9;">Derivador</div></div>
+<!-- COMO FUNCIONA -->
+<section id="como" class="scene reveal">
+  <span class="eyebrow">Capítulo I · Cómo funciona</span>
+  <h2 class="sf-display huge mb-12 mt-3">Tres pasos. Sin fricción.</h2>
+  <div class="grid sm:grid-cols-3 gap-6">
+    <div class="card"><div class="text-[44px] sf-display mb-3" style="color:var(--accent);">01</div><h3 class="sf-display text-2xl mb-2">Valentina recibe</h3><p class="text-[15px]" style="color:var(--muted);">Conversación gratis para entender tu caso. Sin signup ni paywall.</p></div>
+    <div class="card"><div class="text-[44px] sf-display mb-3" style="color:var(--accent);">02</div><h3 class="sf-display text-2xl mb-2">Sigmund + Smith evalúan</h3><p class="text-[15px]" style="color:var(--muted);">Personalidad (7 dimensiones) y competencias laborales. Guardrails Themis y Hygea revisan cada turno.</p></div>
+    <div class="card"><div class="text-[44px] sf-display mb-3" style="color:var(--accent);">03</div><h3 class="sf-display text-2xl mb-2">Matusalem consolida</h3><p class="text-[15px]" style="color:var(--muted);">Informe único con recomendación. Albert deriva a psicólogo humano si aplica.</p></div>
   </div>
 </section>
 
-<!-- CAP PRECIOS -->
-<section id="precios" class="cap reveal">
-  <div class="eyebrow">Capítulo IV · planes</div>
-  <h2 class="sf-display huge mb-12">Empieza gratis.<br/>Escala cuando quieras.</h2>
-  <div class="grid sm:grid-cols-3 gap-5 max-w-5xl w-full">
-    <div class="card p-8 text-left">
+<!-- EQUIPO -->
+<section id="equipo" class="scene reveal" style="background:var(--bg-2);max-width:none;padding-left:5vw;padding-right:5vw;">
+  <div class="max-w-6xl mx-auto">
+    <span class="eyebrow">Capítulo II · El equipo</span>
+    <h2 class="sf-display huge mb-3 mt-3">Seis agentes especialistas.</h2>
+    <p class="text-lg mb-12" style="color:var(--muted);">Cada uno entrenado para un rol. Humanos firman lo crítico.</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div class="card"><div class="w-12 h-12 rounded-full mb-3" style="background:var(--accent-2)"></div><div class="sf-display text-xl">Valentina</div><div class="text-xs uppercase tracking-wider mt-1" style="color:var(--accent-2);">FrontOffice</div></div>
+      <div class="card"><div class="w-12 h-12 rounded-full mb-3" style="background:var(--accent-2)"></div><div class="sf-display text-xl">Sigmund</div><div class="text-xs uppercase tracking-wider mt-1" style="color:var(--accent-2);">Personalidad</div></div>
+      <div class="card"><div class="w-12 h-12 rounded-full mb-3" style="background:var(--accent-2)"></div><div class="sf-display text-xl">Smith</div><div class="text-xs uppercase tracking-wider mt-1" style="color:var(--accent-2);">Laboral</div></div>
+      <div class="card"><div class="w-12 h-12 rounded-full mb-3" style="background:#a855f7"></div><div class="sf-display text-xl">Miyagi</div><div class="text-xs uppercase tracking-wider mt-1" style="color:#a855f7;">Orquestador</div></div>
+      <div class="card"><div class="w-12 h-12 rounded-full mb-3" style="background:#0ea5e9"></div><div class="sf-display text-xl">Matusalem</div><div class="text-xs uppercase tracking-wider mt-1" style="color:#0ea5e9;">Integrador</div></div>
+      <div class="card"><div class="w-12 h-12 rounded-full mb-3" style="background:#0ea5e9"></div><div class="sf-display text-xl">Albert</div><div class="text-xs uppercase tracking-wider mt-1" style="color:#0ea5e9;">Derivador</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios" class="scene reveal">
+  <span class="eyebrow">Capítulo III · Planes</span>
+  <h2 class="sf-display huge mb-12 mt-3">Empieza gratis. Escala cuando quieras.</h2>
+  <div class="grid sm:grid-cols-3 gap-5">
+    <div class="card">
       <div class="text-xs uppercase tracking-widest mb-2" style="color:var(--muted);">Free</div>
       <div class="sf-display text-5xl mb-1">$0</div>
       <div class="text-sm mb-6" style="color:var(--muted);">10 evaluaciones / mes</div>
-      <a href="https://argos.vecttore.com" class="btn-ghost text-sm w-full justify-center" style="padding:10px 20px;">Empezar</a>
+      <a href="https://argos.vecttore.com" class="btn btn-ghost text-sm w-full justify-center" style="padding:10px 20px;">Empezar</a>
     </div>
-    <div class="card p-8 text-left" style="border-color:var(--accent);box-shadow:0 30px 80px -20px color-mix(in srgb,var(--accent) 25%, transparent);">
+    <div class="card" style="border-color:var(--accent);box-shadow:0 30px 80px -20px color-mix(in srgb,var(--accent) 25%, transparent);">
       <div class="text-xs uppercase tracking-widest mb-2" style="color:var(--accent);">Pro · más popular</div>
       <div class="sf-display text-5xl mb-1">$49<span class="text-base font-normal" style="color:var(--muted);">/mes</span></div>
       <div class="text-sm mb-6" style="color:var(--muted);">200 evaluaciones · voz Valentina · API</div>
-      <a href="https://argos.vecttore.com" class="btn-primary text-sm w-full justify-center" style="padding:10px 20px;">14 días gratis</a>
+      <a href="https://argos.vecttore.com" class="btn btn-primary text-sm w-full justify-center" style="padding:10px 20px;">14 días gratis</a>
     </div>
-    <div class="card p-8 text-left">
+    <div class="card">
       <div class="text-xs uppercase tracking-widest mb-2" style="color:var(--muted);">Enterprise</div>
       <div class="sf-display text-5xl mb-1">Custom</div>
       <div class="text-sm mb-6" style="color:var(--muted);">SSO · SLA · multi-tenant</div>
-      <a href="mailto:hola@peopletrust.cl" class="btn-ghost text-sm w-full justify-center" style="padding:10px 20px;">Hablar con ventas</a>
+      <a href="mailto:hola@peopletrust.cl" class="btn btn-ghost text-sm w-full justify-center" style="padding:10px 20px;">Hablar con ventas</a>
     </div>
   </div>
 </section>
 
-<!-- CAP FAQ -->
-<section id="faq" class="cap reveal" style="background:var(--bg-2);">
-  <div class="eyebrow">Capítulo V · preguntas</div>
-  <h2 class="sf-display huge mb-12">Lo que más nos preguntan.</h2>
-  <div class="max-w-2xl w-full text-left space-y-3">
-    <details class="card p-5"><summary class="cursor-pointer sf-display text-lg">¿Sigmund da diagnóstico clínico?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">No. Evalúa personalidad, no patología. El diagnóstico clínico requiere licencia profesional y lo firma un humano. Themis y Hygea bloquean cualquier mensaje que pueda interpretarse como diagnóstico.</p></details>
-    <details class="card p-5"><summary class="cursor-pointer sf-display text-lg">¿Mis datos están seguros?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">Sí. Supabase con RLS multi-tenant. Cumplimos Ley 19.628 (Chile) y RGPD-equivalente.</p></details>
-    <details class="card p-5"><summary class="cursor-pointer sf-display text-lg">¿Cuánto demora una evaluación?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">15 a 25 minutos por candidato. El informe consolidado llega en otros 3 a 5 minutos.</p></details>
-    <details class="card p-5"><summary class="cursor-pointer sf-display text-lg">¿La voz cuesta extra?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">La voz natural de Valentina (ElevenLabs) viene con el plan Pro. La conversación por texto es gratis siempre.</p></details>
+<!-- FAQ -->
+<section id="faq" class="scene reveal" style="background:var(--bg-2);max-width:none;padding-left:5vw;padding-right:5vw;">
+  <div class="max-w-3xl mx-auto">
+    <span class="eyebrow">Capítulo IV · Preguntas</span>
+    <h2 class="sf-display huge mb-10 mt-3">Lo que más nos preguntan.</h2>
+    <div class="space-y-3">
+      <details class="card"><summary class="cursor-pointer sf-display text-lg">¿Sigmund da diagnóstico clínico?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">No. Evalúa personalidad, no patología. El diagnóstico clínico requiere licencia profesional y lo firma un humano.</p></details>
+      <details class="card"><summary class="cursor-pointer sf-display text-lg">¿Mis datos están seguros?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">Sí. Supabase con RLS multi-tenant. Cumplimos Ley 19.628 (Chile) y RGPD-equivalente.</p></details>
+      <details class="card"><summary class="cursor-pointer sf-display text-lg">¿Cuánto demora una evaluación?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">15 a 25 minutos por candidato. El informe consolidado llega en otros 3 a 5 minutos.</p></details>
+      <details class="card"><summary class="cursor-pointer sf-display text-lg">¿La voz cuesta extra?</summary><p class="mt-3 text-[15px]" style="color:var(--muted);">La voz natural de Valentina (ElevenLabs) viene con el plan Pro. La conversación por texto es gratis siempre.</p></details>
+    </div>
   </div>
 </section>
 
 <!-- CTA FINAL -->
-<section class="cap reveal">
-  <h2 class="sf-display hero mb-8">¿Empezamos?<span style="color:var(--muted);">.</span></h2>
-  <p class="text-2xl mb-10" style="color:var(--muted);font-weight:300;">14 días gratis del plan Pro. Sin tarjeta.</p>
-  <a href="https://argos.vecttore.com" class="btn-primary" style="font-size:19px;padding:16px 36px;">Crear cuenta</a>
+<section class="scene text-center reveal">
+  <h2 class="sf-display mb-6" style="font-size:clamp(48px,7vw,84px);line-height:1;">¿Empezamos?<span style="color:var(--muted);">.</span></h2>
+  <p class="text-xl mb-9" style="color:var(--muted);font-weight:300;">14 días gratis del plan Pro. Sin tarjeta.</p>
+  <a href="https://argos.vecttore.com" class="btn btn-primary" style="font-size:19px;padding:16px 36px;">Crear cuenta</a>
 </section>
 
 <footer class="text-center text-xs py-10 border-t" style="color:var(--muted);border-color:var(--border);">
-  © PeopleTrust 2026 · Maqueta L · base Apple Vision + chat Valentina con voz
+  © PeopleTrust 2026 · Maqueta L · Apple Vision + parallax + Valentina con voz
 </footer>
 
-<script>
+<script type="module">
+import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@11.18.2/+esm';
+
 // ─── Theme toggle ───
 const themeBtn = document.getElementById('themeBtn');
 const iconSun = document.getElementById('iconSun');
@@ -297,7 +336,32 @@ themeBtn.addEventListener('click', () => {
 });
 syncThemeIcons();
 
-// ─── Chat Valentina ───
+// ─── PARALLAX scroll-based (Motion library) ───
+// Halos se mueven a velocidades distintas según el scroll
+document.querySelectorAll('.parallax-slow').forEach(el => {
+  const speed = parseFloat(el.dataset.speed || '0.3');
+  scroll(
+    animate(el, { transform: ['translateY(0)', `translateY(${-200 * speed}px)`] }),
+    { target: document.querySelector('.hero') }
+  );
+});
+
+// Avatar disc rota suavemente con el scroll del hero
+const avStage = document.querySelector('.av-stage');
+if(avStage){
+  scroll(
+    animate(avStage, { transform: ['scale(1) rotate(0deg)', 'scale(.85) rotate(-8deg)'], opacity: [1, 0.4] }),
+    { target: document.querySelector('.hero') }
+  );
+}
+
+// Reveal en secciones (fallback simple por IntersectionObserver, complementa Motion)
+const obs = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); }
+}), { threshold:.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ─── Chat Valentina (sales doctrine VAL) ───
 const chatLog = document.getElementById('chatLog');
 const form = document.getElementById('form');
 const input = document.getElementById('input');
@@ -306,6 +370,7 @@ const voiceToggleBtn = document.getElementById('voiceToggleBtn');
 const iconSpeakOn = document.getElementById('iconSpeakOn');
 const iconSpeakOff = document.getElementById('iconSpeakOff');
 const voiceState = document.getElementById('voiceState');
+const idleState = document.getElementById('idleState');
 
 let voiceEnabled = localStorage.getItem('pt-voice') !== '0';
 function syncVoiceIcons(){
@@ -316,9 +381,12 @@ voiceToggleBtn.addEventListener('click', () => {
   voiceEnabled = !voiceEnabled;
   localStorage.setItem('pt-voice', voiceEnabled ? '1' : '0');
   syncVoiceIcons();
-  if(!voiceEnabled){ try { speechSynthesis.cancel(); } catch(e){} voiceState.classList.add('hidden'); voiceState.classList.remove('flex'); }
+  if(!voiceEnabled){ try { speechSynthesis.cancel(); } catch(e){} showIdle(); }
 });
 syncVoiceIcons();
+
+function showSpeaking(){ voiceState.classList.remove('hidden'); voiceState.classList.add('flex'); idleState.classList.add('hidden'); }
+function showIdle(){ voiceState.classList.add('hidden'); voiceState.classList.remove('flex'); idleState.classList.remove('hidden'); }
 
 function addMsg(role, html){
   const div = document.createElement('div');
@@ -337,34 +405,30 @@ function thinking(){
 }
 function stopThk(){ document.getElementById('thk')?.remove(); }
 
-// TTS demo (Web Speech API del navegador). Producción: ElevenLabs.
 function speak(text){
   if(!voiceEnabled || !('speechSynthesis' in window)) return;
   try { speechSynthesis.cancel(); } catch(e){}
   const plain = text.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   const u = new SpeechSynthesisUtterance(plain);
-  u.lang = 'es-ES';
-  u.rate = 1.05;
-  u.pitch = 1.08;
-  // Voz femenina si disponible
+  u.lang = 'es-ES'; u.rate = 1.05; u.pitch = 1.08;
   const voices = speechSynthesis.getVoices();
   const fem = voices.find(v => /es/i.test(v.lang) && /female|mujer|paulina|monica|sabina|esperanza/i.test(v.name + v.voiceURI));
   if(fem) u.voice = fem;
-  u.onstart = () => { voiceState.classList.remove('hidden'); voiceState.classList.add('flex'); };
-  u.onend   = () => { voiceState.classList.add('hidden'); voiceState.classList.remove('flex'); };
+  u.onstart = showSpeaking;
+  u.onend = showIdle;
   speechSynthesis.speak(u);
 }
 
 function reply(msg){
   const m = msg.toLowerCase();
   if(/caro|much[oa] (plata|dinero)|no (tengo|puedo pagar)/.test(m))
-    return `Una mala contratación cuesta entre seis y doce sueldos. El plan Pro a 49 al mes paga UNA evaluación que evite ese error. Y si recién empiezas, <b>Free</b> da diez evaluaciones al mes sin tarjeta.`;
+    return `Una mala contratación cuesta entre seis y doce sueldos. El plan Pro a 49 al mes paga UNA evaluación que evite ese error. Si recién empiezas, <b>Free</b> da diez evaluaciones al mes, sin tarjeta.`;
   if(/ahora no|m[aá]s adelante|despu[eé]s/.test(m))
     return `Sin apuro. ¿Te dejo material en el correo? Hablar conmigo siempre es gratis cuando vuelvas.`;
   if(/c[oó]mo (me )?registr|empezar|trial|probar/.test(m))
     return `¡Genial! Crear cuenta en argos punto vecttore punto com toma treinta segundos. Plan Free sin tarjeta.`;
   if(/precio|costo|cuanto|plan/.test(m))
-    return `Tres planes: <b>Free</b> a cero pesos, diez evaluaciones. <b>Pro</b> a 49 al mes, doscientas evaluaciones y voz natural. <b>Enterprise</b> a medida. ¿Para qué proceso lo necesitas?`;
+    return `Tres planes: <b>Free</b> a cero pesos con diez evaluaciones. <b>Pro</b> a 49 al mes, doscientas evaluaciones más voz natural. <b>Enterprise</b> a medida. ¿Para qué proceso lo necesitas?`;
   if(/evaluar|candidato|t[eé]cnic/.test(m))
     return `Cuéntame: ¿cuántos procesos por mes manejas y qué rol más frecuente? Te recomiendo el plan justo, sin venderte de más.`;
   if(/turnover|mala contrataci|equivoc/.test(m))
@@ -374,7 +438,7 @@ function reply(msg){
   if(/seguro|datos|privacidad|legal/.test(m))
     return `Tus datos viven en Supabase con seguridad multi-tenant. Cumplimos la ley 19.628 de Chile y el reglamento europeo equivalente.`;
   if(/voz|hablar|elevenlabs/.test(m))
-    return `Ahora mismo estás escuchando el sintetizador del navegador. La voz natural de estudio viene con el plan Pro vía ElevenLabs.`;
+    return `Ahora estás escuchando el sintetizador del navegador. La voz natural de estudio viene con el plan Pro vía ElevenLabs.`;
   if(/contact|humano|email|mail/.test(m))
     return `Escribe a hola arroba peopletrust punto cl. Respondemos en menos de veinticuatro horas hábiles.`;
   if(/^(hola|hi|buen)/.test(m))
@@ -397,7 +461,7 @@ function send(text){
 form.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
 document.querySelectorAll('.sug').forEach(b => b.addEventListener('click', () => send(b.dataset.msg)));
 
-// ─── STT mic (Web Speech API) ───
+// STT mic
 let recognition, listening = false;
 if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -405,30 +469,18 @@ if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
   recognition.lang = 'es-CL';
   recognition.continuous = false;
   recognition.interimResults = false;
-  recognition.onresult = e => {
-    const t = e.results[0][0].transcript;
-    input.value = t;
-    send(t);
-  };
+  recognition.onresult = e => { const t = e.results[0][0].transcript; input.value = t; send(t); };
   recognition.onend = () => { listening = false; micBtn.classList.remove('mic-on'); };
   recognition.onerror = () => { listening = false; micBtn.classList.remove('mic-on'); };
 }
 micBtn.addEventListener('click', () => {
-  if(!recognition){
-    addMsg('val', 'Tu navegador no soporta dictado de voz. Prueba Chrome o Safari reciente, o escríbeme aquí.');
-    return;
-  }
+  if(!recognition){ addMsg('val', 'Tu navegador no soporta dictado de voz. Prueba Chrome o Safari reciente, o escríbeme aquí.'); return; }
   if(listening){ recognition.stop(); return; }
   listening = true;
   micBtn.classList.add('mic-on');
   try { recognition.start(); } catch(e){ listening=false; micBtn.classList.remove('mic-on'); }
 });
 
-// Pre-carga voces (algunos browsers tardan en poblarse)
 if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); }
-
-// Reveal on scroll
-const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target);} }), { threshold:.15 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body></html>

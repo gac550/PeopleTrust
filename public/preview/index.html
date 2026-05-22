@@ -8,6 +8,8 @@
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
+<!-- FIX trailing-slash de Vercel: forzar base absoluta para que iframes con src="A.html" resuelvan a /preview/A.html, no a /A.html -->
+<base href="/preview/" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   *{-webkit-tap-highlight-color:transparent}

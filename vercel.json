@@ -6,6 +6,12 @@
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
       ]
+    },
+    {
+      "source": "/preview/reset",
+      "headers": [
+        { "key": "Clear-Site-Data", "value": "\"cache\", \"cookies\", \"storage\"" }
+      ]
     }
   ]
 }

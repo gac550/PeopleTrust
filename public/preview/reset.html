@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+<title>Reset cache · PeopleTrust preview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{font-family:'Inter',sans-serif;background:#070612;color:#fff;}</style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+<div class="max-w-md text-center">
+<div class="w-16 h-16 rounded-full bg-violet-600 mx-auto mb-6 grid place-items-center">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+</div>
+<h1 class="text-2xl font-semibold mb-3" id="title">Limpiando cache…</h1>
+<p class="text-slate-400 text-sm mb-6" id="msg">Quitando cookies, storage local y service workers del subdominio.</p>
+<div id="progress" class="w-full bg-white/10 rounded-full h-2 mb-6 overflow-hidden">
+<div id="bar" class="bg-violet-500 h-full transition-all" style="width:0%"></div>
+</div>
+<a href="/preview/" id="goBtn" class="inline-block px-6 py-3 rounded-xl bg-white text-black font-semibold opacity-50 pointer-events-none">Ir a maquetas →</a>
+<p class="text-xs text-slate-500 mt-6">El header HTTP <code>Clear-Site-Data</code> limpia todo lo que el browser cacheó. Vuelve a /preview/ y debería funcionar.</p>
+</div>
+
+<script>
+const bar = document.getElementById('bar');
+const title = document.getElementById('title');
+const msg = document.getElementById('msg');
+const goBtn = document.getElementById('goBtn');
+
+async function reset(){
+  // 1. Cookies del dominio
+  bar.style.width = '20%';
+  document.cookie.split(';').forEach(c => {
+    const eq = c.indexOf('=');
+    const name = (eq > -1 ? c.substr(0, eq) : c).trim();
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.vecttore.com`;
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=peopletrust.vecttore.com`;
+  });
+
+  // 2. Local + Session Storage
+  bar.style.width = '40%';
+  try { localStorage.clear(); } catch(e){}
+  try { sessionStorage.clear(); } catch(e){}
+
+  // 3. IndexedDB
+  bar.style.width = '60%';
+  if('indexedDB' in window){
+    try {
+      const dbs = await indexedDB.databases();
+      for(const db of dbs) indexedDB.deleteDatabase(db.name);
+    } catch(e){}
+  }
+
+  // 4. Service Workers
+  bar.style.width = '80%';
+  if('serviceWorker' in navigator){
+    try {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for(const r of regs) await r.unregister();
+    } catch(e){}
+  }
+
+  // 5. Cache Storage
+  bar.style.width = '95%';
+  if('caches' in window){
+    try {
+      const keys = await caches.keys();
+      for(const k of keys) await caches.delete(k);
+    } catch(e){}
+  }
+
+  // 6. Done
+  bar.style.width = '100%';
+  title.textContent = '✓ Limpio';
+  msg.textContent = 'Todo el cache del subdomain quitado. Tocá el botón para ir a las maquetas.';
+  goBtn.classList.remove('opacity-50','pointer-events-none');
+
+  // Auto-redirect 2s
+  setTimeout(() => location.href = '/preview/?fresh=' + Date.now(), 2000);
+}
+
+reset();
+</script>
+</body></html>

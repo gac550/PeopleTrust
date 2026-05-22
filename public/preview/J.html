@@ -84,8 +84,8 @@
       </div>
       <form id="form" class="flex items-end gap-2 p-2">
         <input id="input" placeholder="Escribí aquí…" class="flex-1 bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5"/>
-        <button type="button" id="micBtn" class="w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10" aria-label="Hablar">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        <button type="button" id="micBtn" class="w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10 opacity-50" aria-label="Voz · plan Pro" title="Voz Valentina · disponible con plan Pro (ElevenLabs)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
         </button>
         <button type="submit" class="w-10 h-10 rounded-full grid place-items-center text-white" style="background:linear-gradient(135deg,#a855f7,#7c3aed)" aria-label="Enviar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
@@ -183,7 +183,7 @@ function addMsg(role,html){
 }
 function thinking(){const w=document.createElement('div');w.className='bubble';w.id='thk';w.innerHTML=`<div class="bg-white/5 rounded-2xl rounded-tl-md px-4 py-3 typing inline-block"><span></span><span></span><span></span></div>`;chat.appendChild(w);chat.scrollTop=chat.scrollHeight;}
 function stopThk(){document.getElementById('thk')?.remove();}
-function speak(t){if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,''));u.lang='es-ES';u.rate=1.05;u.pitch=1.1;speechSynthesis.speak(u);}
+function speak(){/* Voz vía ElevenLabs en plan Pro */}
 // Valentina sales doctrine VAL-01..VAL-12 (corta — versión full en A.html)
 function reply(m){m=m.toLowerCase();
   if(/caro|much[oa] plata|no (tengo|puedo pagar)/.test(m))return`Una mala contratación cuesta 6-12 sueldos. Pro a $49/mes paga UNA evaluación que evite ese error. Y si recién arrancás, el plan <b>Free</b> da 10 evals/mes <i>sin tarjeta</i>.`;
@@ -203,15 +203,8 @@ function send(t){if(!t.trim())return;addMsg('user',t);input.value='';thinking();
 form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
 document.querySelectorAll('.sug').forEach(b=>b.addEventListener('click',()=>send(b.dataset.msg)));
 
-// Speech recognition
-let rec,listening=false;
-if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  rec=new SR();rec.lang='es-CL';rec.continuous=false;rec.interimResults=false;
-  rec.onresult=e=>{const t=e.results[0][0].transcript;input.value=t;send(t);};
-  rec.onend=()=>{listening=false;micBtn.classList.remove('mic-on');};
-}
-micBtn.addEventListener('click',()=>{if(!rec){alert('Voz no soportada en este browser');return;}if(listening){rec.stop();return;}listening=true;micBtn.classList.add('mic-on');rec.start();});
+// Voz mic locked en MVP — activa con plan Pro (ElevenLabs).
+micBtn.addEventListener('click',()=>{addMsg('valentina','Voz es parte del plan <b>Pro</b> (ElevenLabs). Por ahora escribime 💬');});
 
 // Reveal on scroll
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}}),{threshold:.12});

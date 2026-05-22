@@ -92,8 +92,8 @@
     <!-- Input area -->
     <form id="form" class="flex items-end gap-2 p-2">
       <textarea id="input" rows="1" placeholder="Escribí o tocá el micrófono…" class="flex-1 resize-none bg-transparent outline-none text-sm text-white placeholder-slate-500 px-3 py-2.5 max-h-32"></textarea>
-      <button type="button" id="micBtn" aria-label="Hablar" class="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10 transition" title="Hablar">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <button type="button" id="micBtn" aria-label="Voz (próximamente con plan Pro)" class="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center bg-white/5 hover:bg-white/10 transition opacity-50" title="Voz Valentina · disponible con plan Pro (ElevenLabs)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       </button>
       <button type="submit" aria-label="Enviar" class="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center text-white" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
@@ -156,13 +156,9 @@ function thinking(){
 }
 function stopThinking(){ document.getElementById('thinking')?.remove(); }
 
-// Speech synthesis
-function speak(text){
-  if(!('speechSynthesis' in window)) return;
-  const u = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g,''));
-  u.lang='es-ES'; u.rate=1.05; u.pitch=1.1;
-  speechSynthesis.speak(u);
-}
+// Voz Valentina: feature de plan Pro (ElevenLabs en producción).
+// MVP gratuito = solo texto. speak() es no-op.
+function speak(){ /* ElevenLabs activa con plan Pro */ }
 
 // Valentina — Doctrina sales VAL-01..VAL-12 (docs/specs/valentina-sales-doctrine.md)
 // Lectura de señales (VAL-07): intent + sentiment + journey stage + objeciones.
@@ -240,22 +236,9 @@ form.addEventListener('submit', e => { e.preventDefault(); send(input.value); })
 input.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(input.value); }});
 suggestions.forEach(b => b.addEventListener('click', ()=> send(b.dataset.msg)));
 
-// Web Speech API: STT
-let recognition;
-let listening = false;
-if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SR();
-  recognition.lang='es-CL';
-  recognition.continuous=false;
-  recognition.interimResults=false;
-  recognition.onresult = e => { const t = e.results[0][0].transcript; input.value=t; send(t); };
-  recognition.onend = () => { listening=false; micBtn.classList.remove('mic-on'); };
-}
+// Voz Valentina (mic) — locked en MVP. Se activa con plan Pro vía ElevenLabs.
 micBtn.addEventListener('click', () => {
-  if(!recognition){ alert('Tu navegador no soporta dictado de voz. Probá Chrome/Safari reciente.'); return; }
-  if(listening){ recognition.stop(); return; }
-  listening=true; micBtn.classList.add('mic-on'); recognition.start();
+  addMsg('valentina', 'La voz es parte del plan <b>Pro</b>. Con voz real de estudio (ElevenLabs) podemos conversar fluido. Mientras tanto, escribime acá. 💬');
 });
 
 // Mobile nav

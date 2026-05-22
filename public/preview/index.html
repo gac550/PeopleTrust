@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Maquetas PeopleTrust · preview iPad</title>
 <meta name="theme-color" content="#070612" />
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   *{-webkit-tap-highlight-color:transparent}
@@ -90,8 +93,14 @@
 </header>
 
 <!-- FRAME -->
-<div class="frame-wrap">
+<div class="frame-wrap relative">
   <iframe id="frame" src="A.html" title="Maqueta" allow="microphone *"></iframe>
+  <!-- Reload button — siempre disponible si el iframe queda en blanco -->
+  <button onclick="document.getElementById('frame').src=document.getElementById('frame').src.split('?')[0]+'?v='+Date.now()"
+          title="Recargar maqueta (cache-bust)"
+          class="absolute bottom-3 right-3 z-10 w-10 h-10 rounded-full grid place-items-center bg-violet-600/90 hover:bg-violet-600 text-white shadow-lg backdrop-blur-sm">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+  </button>
 </div>
 
 <!-- TOAST "próximamente" -->
@@ -107,12 +116,13 @@ const toast = document.getElementById('toast');
 const toastLabel = document.getElementById('toastLabel');
 
 function setActive(src, label){
-  frame.src = src;
+  // Cache-bust: forzar reload del iframe en cada cambio (Safari iOS cachea agresivo)
+  const bust = `?v=${Date.now()}`;
+  frame.src = src + bust;
   openTab.href = src;
   tabs.forEach(t => t.classList.toggle('active', t.dataset.src === src));
   history.replaceState(null, '', `#${label}`);
   document.title = `Maqueta ${label} · PeopleTrust preview`;
-  // Scroll tab activo a la vista
   const active = document.querySelector('.tab.active');
   if(active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
 }

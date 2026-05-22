@@ -47,6 +47,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-CL">
+      <head>
+        {/* TD-05 anti-FOUC · default LIGHT */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.dataset.theme=localStorage.getItem('pt-theme')||'light'`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   )

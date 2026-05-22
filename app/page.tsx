@@ -16,6 +16,7 @@ const MAQUETAS: { label: string; src: string; title: string }[] = [
   { label: 'J', src: '/preview/J.html', title: 'J · híbrido scroll' },
   { label: 'K', src: '/preview/K.html', title: 'K · combinada (J+H+G+A)' },
   { label: 'L', src: '/preview/L.html', title: 'L · Apple Vision + SF Pro + voz' },
+  { label: 'M', src: '/preview/M.html', title: 'M · Valentina se arma · GSAP ScrollTrigger' },
 ]
 
 export default function HomePage() {

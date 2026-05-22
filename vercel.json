@@ -1,10 +1,19 @@
 {
+  "rewrites": [
+    { "source": "/preview/reset", "destination": "/preview/reset.html" }
+  ],
   "headers": [
     {
       "source": "/preview/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    },
+    {
+      "source": "/preview/reset.html",
+      "headers": [
+        { "key": "Clear-Site-Data", "value": "\"cache\", \"cookies\", \"storage\"" }
       ]
     },
     {

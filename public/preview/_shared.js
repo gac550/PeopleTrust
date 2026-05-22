@@ -1,6 +1,14 @@
 // Valentina sales doctrine VAL-01..VAL-12 — script compartido entre maquetas.
 // Voz locked en MVP (decisión user 2026-05-21): voz solo plan Pro vía ElevenLabs.
 // API pública: window.Valentina = { reply(msg), bindChat(opts), bindMic(btn) }
+//
+// TD-06: lee ?theme=<light|dark> del query string y aplica al <html>.
+(function(){
+  try {
+    const t = new URL(location.href).searchParams.get('theme');
+    if(t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch(e){}
+})();
 (function(){
   function reply(msg){
     const m=(msg||'').toLowerCase();

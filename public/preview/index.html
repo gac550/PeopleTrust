@@ -3,164 +3,132 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Maquetas PeopleTrust · preview iPad</title>
-<meta name="theme-color" content="#070612" />
+<title>Maquetas · PeopleTrust preview</title>
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<!-- FIX trailing-slash de Vercel: forzar base absoluta para que iframes con src="A.html" resuelvan a /preview/A.html, no a /A.html -->
 <base href="/preview/" />
+<!-- TD-05 anti-FOUC -->
+<script>document.documentElement.dataset.theme=localStorage.getItem('pt-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  *{-webkit-tap-highlight-color:transparent}
-  html,body{height:100%;margin:0;background:#070612;color:#e5e3f0;font-family:'Inter','system-ui',sans-serif;overflow:hidden;}
-  .glass{background:rgba(255,255,255,.04);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);}
-  .tab{position:relative;cursor:pointer;user-select:none;}
-  .tab.active{color:#fff;}
-  .tab.active::after{content:'';position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:linear-gradient(90deg,#a855f7,#7c3aed);border-radius:2px 2px 0 0;}
-  .tab:hover{color:#fff;background:rgba(255,255,255,.04);}
-  iframe{display:block;width:100%;height:100%;border:0;background:#070612;}
-  .frame-wrap{height:calc(100vh - 56px);height:calc(100svh - 56px);}
-  /* Mobile: tabs scroll horizontal */
-  .tabs-row{scrollbar-width:none;}
-  .tabs-row::-webkit-scrollbar{display:none;}
-  /* Status pill */
-  .status-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:600;}
-  .status-active{background:rgba(34,197,94,.16);color:#86efac;border:1px solid rgba(34,197,94,.4);}
-  .status-soon{background:rgba(168,85,247,.12);color:#c4b5fd;border:1px solid rgba(168,85,247,.3);}
+:root[data-theme="dark"]  { --bg:#070612; --fg:#e5e3f0; --muted:#94a3b8; --accent:#a855f7; --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.10); --hover:rgba(255,255,255,.06); }
+:root[data-theme="light"] { --bg:#fafafa; --fg:#0f172a; --muted:#64748b; --accent:#7c3aed; --card:#ffffff;       --border:#e2e8f0;            --hover:#f1f5f9; }
+*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:'Inter','system-ui',sans-serif;overflow:hidden;transition:background-color .2s,color .2s;}
+header.shell{background:var(--card);border-bottom:1px solid var(--border);}
+.tab{position:relative;cursor:pointer;user-select:none;color:var(--muted);background:transparent;border:none;height:48px;width:44px;display:inline-grid;place-items:center;font:600 14px/1 'JetBrains Mono','SF Mono',ui-monospace,monospace;flex-shrink:0;transition:color .15s,background .15s;}
+.tab:hover{color:var(--fg);background:var(--hover);}
+.tab.active{color:var(--fg);}
+.tab.active::after{content:'';position:absolute;left:6px;right:6px;bottom:0;height:2px;background:var(--accent);border-radius:2px 2px 0 0;}
+.iconbtn{width:36px;height:36px;border-radius:8px;border:none;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:.15s;}
+.iconbtn:hover{color:var(--fg);background:var(--hover);}
+iframe{display:block;width:100%;height:100%;border:0;background:var(--bg);transition:background .2s;}
+.frame-wrap{height:calc(100vh - 49px);height:calc(100svh - 49px);position:relative;}
+.tabs-row{scrollbar-width:none;}
+.tabs-row::-webkit-scrollbar{display:none;}
+.dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;margin-left:6px;animation:pulse 2s infinite;}
+@keyframes pulse{50%{opacity:.3}}
 </style>
 </head>
 <body>
 
-<!-- HEADER + TABS -->
-<header class="glass sticky top-0 z-50 h-14 flex items-center px-3 sm:px-5">
+<!-- HEADER -->
+<header class="shell sticky top-0 z-50 h-12 flex items-center px-2 sm:px-3 gap-1">
 
-  <!-- Brand minimal -->
-  <div class="flex items-center gap-2 mr-4 flex-shrink-0">
-    <div class="w-7 h-7 rounded-lg" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div>
-    <span class="font-semibold tracking-tight text-sm hidden sm:inline">PeopleTrust · maquetas</span>
-    <span class="font-semibold tracking-tight text-sm sm:hidden">maquetas</span>
-  </div>
+  <!-- Brand -->
+  <span class="font-bold text-xs sm:text-sm tracking-tight flex-shrink-0 px-2 hidden sm:inline">PT · preview</span>
 
-  <!-- Tabs (scroll horizontal en mobile) -->
-  <nav class="tabs-row flex items-center gap-0 flex-1 overflow-x-auto" id="tabs">
-    <button class="tab active px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="A.html" data-label="A">
-      <span class="font-medium">A</span><span class="hidden sm:inline text-xs text-slate-500">· Pi.ai chat</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="J.html" data-label="J">
-      <span class="font-medium">J</span><span class="hidden sm:inline text-xs text-slate-500">· híbrido scroll</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="B.html" data-label="B">
-      <span class="font-medium">B</span><span class="hidden sm:inline text-xs text-slate-500">· Apple cinemática</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="C.html" data-label="C">
-      <span class="font-medium">C</span><span class="hidden sm:inline text-xs text-slate-500">· Linear bento</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="D.html" data-label="D">
-      <span class="font-medium">D</span><span class="hidden sm:inline text-xs text-slate-500">· Stripe mesh</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="E.html" data-label="E">
-      <span class="font-medium">E</span><span class="hidden sm:inline text-xs text-slate-500">· ChatGPT minimal</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="F.html" data-label="F">
-      <span class="font-medium">F</span><span class="hidden sm:inline text-xs text-slate-500">· Character galería</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="G.html" data-label="G">
-      <span class="font-medium">G</span><span class="hidden sm:inline text-xs text-slate-500">· Hume voz-first</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="H.html" data-label="H">
-      <span class="font-medium">H</span><span class="hidden sm:inline text-xs text-slate-500">· Notion cálido</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
-    <button class="tab px-4 h-14 text-sm text-slate-400 transition flex-shrink-0 flex items-center gap-2" data-src="I.html" data-label="I">
-      <span class="font-medium">I</span><span class="hidden sm:inline text-xs text-slate-500">· Replicate demo</span>
-      <span class="status-pill status-active hidden sm:inline-flex">live</span>
-    </button>
+  <!-- Tabs sólo letras (escalable a miles) -->
+  <nav class="tabs-row flex items-center flex-1 overflow-x-auto" id="tabs" aria-label="Maquetas">
+    <button class="tab active" data-src="A.html" data-label="A" title="A · Pi.ai chat">A</button>
+    <button class="tab" data-src="B.html" data-label="B" title="B · Apple cinemática">B</button>
+    <button class="tab" data-src="C.html" data-label="C" title="C · Linear bento">C</button>
+    <button class="tab" data-src="D.html" data-label="D" title="D · Stripe mesh">D</button>
+    <button class="tab" data-src="E.html" data-label="E" title="E · ChatGPT minimal">E</button>
+    <button class="tab" data-src="F.html" data-label="F" title="F · Character galería">F</button>
+    <button class="tab" data-src="G.html" data-label="G" title="G · Hume voz-first">G</button>
+    <button class="tab" data-src="H.html" data-label="H" title="H · Notion cálido">H</button>
+    <button class="tab" data-src="I.html" data-label="I" title="I · Replicate demo">I</button>
+    <button class="tab" data-src="J.html" data-label="J" title="J · híbrido scroll">J</button>
   </nav>
 
-  <!-- Open in new tab button -->
-  <a id="openTab" href="A.html" target="_blank" rel="noopener" title="Abrir en pestaña nueva"
-     class="ml-3 flex-shrink-0 w-9 h-9 rounded-lg grid place-items-center text-slate-400 hover:text-white hover:bg-white/5 transition">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-  </a>
+  <!-- Tools right -->
+  <div class="flex items-center gap-1 flex-shrink-0 pr-1">
+    <!-- Theme toggle (TD-02) -->
+    <button id="themeBtn" class="iconbtn" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro">
+      <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <!-- Reload cache-bust -->
+    <button id="reloadBtn" class="iconbtn" aria-label="Recargar maqueta" title="Recargar maqueta (cache-bust)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+    <!-- Open full -->
+    <a id="openTab" href="A.html" target="_blank" rel="noopener" class="iconbtn" title="Abrir maqueta en pestaña nueva" aria-label="Abrir full">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+  </div>
 
 </header>
 
 <!-- FRAME -->
-<div class="frame-wrap relative">
+<div class="frame-wrap">
   <iframe id="frame" src="A.html" title="Maqueta" allow="microphone *"></iframe>
-  <!-- Reload button — siempre disponible si el iframe queda en blanco -->
-  <button onclick="document.getElementById('frame').src=document.getElementById('frame').src.split('?')[0]+'?v='+Date.now()"
-          title="Recargar maqueta (cache-bust)"
-          class="absolute bottom-3 right-3 z-10 w-10 h-10 rounded-full grid place-items-center bg-violet-600/90 hover:bg-violet-600 text-white shadow-lg backdrop-blur-sm">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-  </button>
-</div>
-
-<!-- TOAST "próximamente" -->
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl text-sm font-medium pointer-events-none opacity-0 transition" style="background:rgba(168,85,247,.16);color:#e9d5ff;border:1px solid rgba(168,85,247,.4);backdrop-filter:blur(10px);">
-  Maqueta <span id="toastLabel">B</span> en producción · próximamente
 </div>
 
 <script>
-const frame = document.getElementById('frame');
-const tabs  = document.querySelectorAll('.tab');
+const frame   = document.getElementById('frame');
+const tabs    = document.querySelectorAll('.tab');
 const openTab = document.getElementById('openTab');
-const toast = document.getElementById('toast');
-const toastLabel = document.getElementById('toastLabel');
+const themeBtn = document.getElementById('themeBtn');
+const reloadBtn = document.getElementById('reloadBtn');
+const iconSun = document.getElementById('iconSun');
+const iconMoon = document.getElementById('iconMoon');
+
+// === Theme (TD-01..TD-08) ===
+function getTheme(){ return document.documentElement.dataset.theme || 'dark'; }
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem('pt-theme', t);
+  iconSun.style.display  = t === 'dark'  ? 'inline' : 'none';
+  iconMoon.style.display = t === 'light' ? 'inline' : 'none';
+  // Re-cargar iframe con nuevo theme query
+  if(frame.src) reloadFrame();
+}
+themeBtn.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+setTheme(getTheme());  // sync iconos al boot
+
+// === Tabs + frame ===
+function reloadFrame(){
+  const current = (frame.src || '').split('?')[0].split('/').pop() || 'A.html';
+  frame.src = `${current}?theme=${getTheme()}&v=${Date.now()}`;
+}
 
 function setActive(src, label){
-  // Cache-bust: forzar reload del iframe en cada cambio (Safari iOS cachea agresivo)
-  const bust = `?v=${Date.now()}`;
-  frame.src = src + bust;
-  openTab.href = src;
+  frame.src = `${src}?theme=${getTheme()}&v=${Date.now()}`;
+  openTab.href = `${src}?theme=${getTheme()}`;
   tabs.forEach(t => t.classList.toggle('active', t.dataset.src === src));
   history.replaceState(null, '', `#${label}`);
-  document.title = `Maqueta ${label} · PeopleTrust preview`;
+  document.title = `${label} · maquetas PT`;
   const active = document.querySelector('.tab.active');
   if(active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
 }
 
-function showToast(label){
-  toastLabel.textContent = label;
-  toast.style.opacity = '1';
-  setTimeout(() => toast.style.opacity = '0', 2400);
-}
+tabs.forEach(t => t.addEventListener('click', () => setActive(t.dataset.src, t.dataset.label)));
+reloadBtn.addEventListener('click', reloadFrame);
 
-tabs.forEach(t => {
-  t.addEventListener('click', () => {
-    if(t.dataset.soon){
-      showToast(t.dataset.soon);
-      return;
-    }
-    setActive(t.dataset.src, t.dataset.label);
-  });
-});
-
-// Hash deeplink en load (#A, #J)
+// Hash deeplink
 const initial = (location.hash || '#A').replace('#','').toUpperCase();
-const initialTab = [...tabs].find(t => t.dataset.label === initial && t.dataset.src);
+const initialTab = [...tabs].find(t => t.dataset.label === initial);
 if(initialTab) setActive(initialTab.dataset.src, initialTab.dataset.label);
 
-// Keyboard nav: ← →
+// Keyboard ← →
 document.addEventListener('keydown', e => {
-  const enabled = [...tabs].filter(t => t.dataset.src);
-  const idx = enabled.findIndex(t => t.classList.contains('active'));
-  if(e.key === 'ArrowRight' && idx < enabled.length-1){
-    const next = enabled[idx+1]; setActive(next.dataset.src, next.dataset.label);
-  }
-  if(e.key === 'ArrowLeft' && idx > 0){
-    const prev = enabled[idx-1]; setActive(prev.dataset.src, prev.dataset.label);
-  }
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const idx = [...tabs].findIndex(t => t.classList.contains('active'));
+  if(e.key === 'ArrowRight' && idx < tabs.length-1){ const n = tabs[idx+1]; setActive(n.dataset.src, n.dataset.label); }
+  if(e.key === 'ArrowLeft'  && idx > 0)            { const p = tabs[idx-1]; setActive(p.dataset.src, p.dataset.label); }
 });
 </script>
-</body>
-</html>
+</body></html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Maqueta E · ChatGPT input gigante · PeopleTrust</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="_shared.js"></script>
+<style>
+*{-webkit-tap-highlight-color:transparent}body{background:#fafafa;color:#0f0f12;font-family:'Inter',sans-serif;margin:0;min-height:100svh;display:flex;flex-direction:column;}
+.input-mega{font-size:18px;background:#fff;border:1.5px solid #e4e4e7;border-radius:24px;box-shadow:0 12px 40px rgba(0,0,0,.05);transition:.2s;}
+.input-mega:focus-within{border-color:#a855f7;box-shadow:0 12px 40px rgba(168,85,247,.18);}
+.send{background:#0f0f12;color:#fff;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;border:none;cursor:pointer;}
+.send:hover{background:#27272a;}
+.chip{display:inline-block;padding:8px 14px;border-radius:999px;background:#fff;border:1px solid #e4e4e7;font-size:13px;color:#52525b;cursor:pointer;}
+.chip:hover{background:#f4f4f5;border-color:#a1a1aa;}
+.placeholder-rotator{color:#a1a1aa;}
+.chat{max-height:38vh;overflow-y:auto;}
+.b-user{background:#0f0f12;color:#fff;border-radius:20px 20px 4px 20px;padding:10px 14px;display:inline-block;max-width:80%;font-size:14px;}
+.b-val{background:#fff;border:1px solid #e4e4e7;border-radius:20px 20px 20px 4px;padding:10px 14px;display:inline-block;max-width:80%;font-size:14px;}
+</style>
+</head>
+<body>
+<header class="px-6 py-4 flex justify-between items-center border-b border-zinc-100">
+<div class="flex items-center gap-2"><div class="w-7 h-7 rounded-md" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div><span class="font-semibold">PeopleTrust</span></div>
+<a href="https://argos.vecttore.com" class="text-sm font-medium text-zinc-700 hover:text-zinc-900">Iniciar sesión</a>
+</header>
+
+<main class="flex-1 flex flex-col items-center justify-center px-6 py-12 max-w-2xl mx-auto w-full">
+<h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-2 text-center">Hablá con Valentina</h1>
+<p class="text-zinc-500 text-center mb-10 text-sm">Tu primer paso en una evaluación profesional · gratis siempre</p>
+
+<div id="chat" class="chat w-full space-y-3 mb-6"></div>
+
+<form id="form" class="w-full input-mega flex items-end gap-2 p-3">
+<textarea id="input" rows="1" placeholder="Probá: 'quiero evaluar un candidato técnico'" class="flex-1 resize-none bg-transparent outline-none px-2 py-2 placeholder:text-zinc-400"></textarea>
+<button type="submit" class="send" aria-label="Enviar">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+</form>
+
+<div class="mt-5 flex flex-wrap justify-center gap-2">
+<button class="chip" data-msg="cuánto cuesta">Cuánto cuesta</button>
+<button class="chip" data-msg="evaluar candidato técnico">Evaluar técnico</button>
+<button class="chip" data-msg="quiénes son ustedes">¿Quiénes son?</button>
+<button class="chip" data-msg="tengo mucho turnover">Tengo turnover</button>
+</div>
+
+<p class="text-xs text-zinc-400 mt-12">Voz Valentina disponible con plan Pro · ElevenLabs</p>
+</main>
+
+<script>
+const chat=document.getElementById('chat'),form=document.getElementById('form'),input=document.getElementById('input');
+input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,128)+'px';});
+function add(role,html){const w=document.createElement('div');w.className=role==='user'?'text-right':'text-left';w.innerHTML=role==='user'?`<span class="b-user">${html}</span>`:`<span class="b-val">${html}</span>`;chat.appendChild(w);chat.scrollTop=chat.scrollHeight;}
+function send(t){if(!t.trim())return;add('user',t);input.value='';input.style.height='auto';setTimeout(()=>add('valentina',window.Valentina.reply(t)),500);}
+form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send(input.value);}});
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>send(c.dataset.msg)));
+// Placeholder rotator
+const phs=['Probá: "quiero evaluar un candidato técnico"','Probá: "cuánto sale el plan Pro"','Probá: "qué incluye Free"','Probá: "tengo mucho turnover"'];
+let pi=0;setInterval(()=>{pi=(pi+1)%phs.length;input.placeholder=phs[pi];},3500);
+</script>
+</body></html>

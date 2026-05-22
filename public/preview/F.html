@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Maqueta F · Character.ai galería · PeopleTrust</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="_shared.js"></script>
+<style>
+*{-webkit-tap-highlight-color:transparent}body{background:#0f0a1f;color:#fff;font-family:'Inter',sans-serif;margin:0;min-height:100svh;}
+.ac{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:1.25rem;cursor:pointer;transition:.2s;position:relative;overflow:hidden;}
+.ac:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.5);box-shadow:0 18px 40px rgba(0,0,0,.4);}
+.ac.feat{background:linear-gradient(160deg,rgba(34,197,94,.16),rgba(34,197,94,.04));border-color:rgba(34,197,94,.4);}
+.ac.feat:hover{border-color:#22c55e;}
+.av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin-bottom:.75rem;}
+.pill{display:inline-block;font-size:10px;padding:3px 9px;border-radius:999px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+.feat-badge{position:absolute;top:14px;right:14px;background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;}
+</style>
+</head>
+<body>
+<header class="px-6 py-4 flex justify-between items-center border-b border-white/5 backdrop-blur sticky top-0 z-30 bg-[#0f0a1f]/80">
+<div class="flex items-center gap-2"><div class="w-7 h-7 rounded-md" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div><span class="font-semibold">PeopleTrust · equipo IA</span></div>
+<a href="https://argos.vecttore.com" class="text-sm px-3 py-1.5 rounded-lg bg-white text-black font-medium">Login</a>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-12">
+<p class="text-xs uppercase tracking-widest text-violet-300 mb-2">Conversá con cualquiera de ellos</p>
+<h1 class="text-4xl sm:text-5xl font-semibold tracking-tight mb-3">Tu equipo de evaluación.</h1>
+<p class="text-slate-400 max-w-xl mb-10">Cada agente está especializado. Tocá uno para conversar (todos gratis con Valentina como anfitriona).</p>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+
+<div class="ac feat" onclick="location.href='A.html'">
+<span class="feat-badge">Empezá acá</span>
+<div class="av" style="background:linear-gradient(135deg,#22c55e,#15803d);box-shadow:0 10px 30px rgba(34,197,94,.5)">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+</div>
+<h3 class="text-lg font-semibold mb-1">Valentina</h3>
+<span class="pill" style="background:rgba(34,197,94,.2);color:#86efac">FrontOffice</span>
+<p class="text-xs text-slate-300 mt-3">Recepcionista IA. Estratega de ventas B2C consultiva. Gratis siempre.</p>
+</div>
+
+<div class="ac" onclick="alert('Sigmund · disponible al crear cuenta')">
+<div class="av" style="background:linear-gradient(135deg,#22c55e,#15803d)"><span class="text-2xl">🧠</span></div>
+<h3 class="text-lg font-semibold mb-1">Sigmund</h3>
+<span class="pill" style="background:rgba(34,197,94,.15);color:#86efac">Personalidad</span>
+<p class="text-xs text-slate-400 mt-3">Entrevista psicológica en 7 dimensiones.</p>
+</div>
+
+<div class="ac" onclick="alert('Smith · disponible al crear cuenta')">
+<div class="av" style="background:linear-gradient(135deg,#22c55e,#15803d)"><span class="text-2xl">💼</span></div>
+<h3 class="text-lg font-semibold mb-1">Smith</h3>
+<span class="pill" style="background:rgba(34,197,94,.15);color:#86efac">Laboral</span>
+<p class="text-xs text-slate-400 mt-3">BEI + competencias + enriquece CV.</p>
+</div>
+
+<div class="ac" onclick="alert('Miyagi · plan Enterprise')">
+<div class="av" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"><span class="text-2xl">👑</span></div>
+<h3 class="text-lg font-semibold mb-1">Miyagi</h3>
+<span class="pill" style="background:rgba(168,85,247,.18);color:#c4b5fd">CEO · Auditor</span>
+<p class="text-xs text-slate-400 mt-3">Coordina, firma handoffs, audita end-to-end.</p>
+</div>
+
+<div class="ac" onclick="alert('Matusalem · plan Pro')">
+<div class="av" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)"><span class="text-2xl">📊</span></div>
+<h3 class="text-lg font-semibold mb-1">Matusalem</h3>
+<span class="pill" style="background:rgba(14,165,233,.18);color:#7dd3fc">Integrador</span>
+<p class="text-xs text-slate-400 mt-3">Consolida insumos en informe único.</p>
+</div>
+
+<div class="ac" onclick="alert('Albert · plan Pro')">
+<div class="av" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)"><span class="text-2xl">🎯</span></div>
+<h3 class="text-lg font-semibold mb-1">Albert</h3>
+<span class="pill" style="background:rgba(14,165,233,.18);color:#7dd3fc">Derivador</span>
+<p class="text-xs text-slate-400 mt-3">Asigna psicólogo humano adecuado.</p>
+</div>
+
+</div>
+
+<div class="mt-12 text-center">
+<p class="text-xs text-slate-500 mb-4">Plus guardrails Themis (legal) + Hygea (clínico) revisando cada interacción</p>
+<a href="https://argos.vecttore.com" class="inline-block px-7 py-3 rounded-xl bg-white text-black font-semibold">Crear cuenta gratis →</a>
+</div>
+</main>
+</body></html>

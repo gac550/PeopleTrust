@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Maqueta C · Linear.app vibe · PeopleTrust</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*{-webkit-tap-highlight-color:transparent}html,body{background:#080812;color:#e5e3f0;font-family:'Inter','SF Pro Display',sans-serif;}
+.glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(168,85,247,.5),transparent 70%);filter:blur(70px);pointer-events:none;}
+.bento{display:grid;gap:14px;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,minmax(140px,auto));}
+@media(max-width:640px){.bento{grid-template-columns:repeat(2,1fr);}}
+.card{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:1.25rem;position:relative;overflow:hidden;}
+.card:hover{border-color:rgba(168,85,247,.4);transform:translateY(-2px);transition:.25s}
+.b-2{grid-column:span 2;}.b-3{grid-column:span 3;}.b-row-2{grid-row:span 2;}
+.chip{display:inline-block;font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#cbd5e1;}
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+<span class="glow" style="top:-200px;left:-200px;"></span>
+<span class="glow" style="bottom:-200px;right:-200px;opacity:.6;background:radial-gradient(closest-side,rgba(34,197,94,.4),transparent 70%);"></span>
+
+<header class="relative z-10 px-6 py-4 flex justify-between items-center max-w-6xl mx-auto">
+<div class="flex items-center gap-2"><div class="w-7 h-7 rounded-md" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div><span class="font-semibold tracking-tight">PeopleTrust</span></div>
+<nav class="flex items-center gap-1 text-sm">
+<a class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-white/5" href="#">Servicios</a>
+<a class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-white/5" href="#">Precios</a>
+<a href="https://argos.vecttore.com" class="ml-2 px-3 py-1.5 rounded-md bg-white text-black font-medium">Login</a>
+</nav>
+</header>
+
+<main class="relative z-10 max-w-6xl mx-auto px-6 pt-12 pb-20">
+<p class="chip mb-6">v1.0 · multi-agente IA</p>
+<h1 class="text-5xl sm:text-7xl font-semibold tracking-tight leading-[0.95] mb-6">
+Evaluación profesional.<br/>
+<span class="text-slate-500">Conducida por agentes IA.</span>
+</h1>
+<p class="text-slate-400 max-w-xl mb-10 text-lg">Sin demos largos. Sin onboarding doloroso. Empezás gratis con Valentina, cierra Sigmund + Smith.</p>
+
+<div class="flex flex-wrap gap-3 mb-16">
+<a href="A.html" class="px-5 py-2.5 rounded-lg bg-white text-black font-medium">Hablar con Valentina</a>
+<a href="https://argos.vecttore.com" class="px-5 py-2.5 rounded-lg border border-white/10 hover:bg-white/5">Crear cuenta gratis →</a>
+</div>
+
+<div class="bento">
+<div class="card b-2 b-row-2">
+<div class="chip mb-3">Valentina · FrontOffice</div>
+<h3 class="text-2xl font-semibold tracking-tight mb-2">Recepción gratis siempre.</h3>
+<p class="text-sm text-slate-400 mb-4">Conversación sin signup, sin paywall. Te conecta con el plan adecuado.</p>
+<div class="rounded-xl bg-white/5 p-3 text-xs border border-white/5">
+<div class="text-emerald-400 mb-1">Valentina</div>
+<div class="text-slate-300">¿Qué tipo de proceso de selección tenés?</div>
+</div>
+</div>
+<div class="card"><div class="chip mb-2">7</div><div class="text-sm text-slate-300">dimensiones de personalidad evaluadas</div></div>
+<div class="card"><div class="chip mb-2">6</div><div class="text-sm text-slate-300">competencias laborales</div></div>
+<div class="card b-2"><div class="chip mb-2">Guardrails</div><h3 class="text-lg font-semibold mb-1">Themis + Hygea</h3><p class="text-xs text-slate-400">Compliance legal + revisión clínica en cada turno.</p></div>
+<div class="card"><div class="chip mb-2">Pro</div><h3 class="text-2xl font-semibold">$49<span class="text-sm font-normal text-slate-500">/mes</span></h3><p class="text-xs text-slate-400">+ voz ElevenLabs</p></div>
+<div class="card"><div class="chip mb-2">Free</div><h3 class="text-2xl font-semibold">$0</h3><p class="text-xs text-slate-400">10 evals/mes · sin tarjeta</p></div>
+<div class="card b-2"><div class="chip mb-2">SLA</div><h3 class="text-lg font-semibold mb-1">99.9% Enterprise</h3><p class="text-xs text-slate-400">SSO · audit log · multi-tenant · soporte 24/7.</p></div>
+</div>
+</main>
+
+<footer class="text-xs text-slate-600 text-center py-6">© PeopleTrust · 2026</footer>
+</body></html>

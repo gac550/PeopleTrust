@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Maqueta I · Replicate demo viva · PeopleTrust</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="_shared.js"></script>
+<style>
+*{-webkit-tap-highlight-color:transparent}body{background:#0a0a0f;color:#e5e5e5;font-family:'JetBrains Mono','SF Mono',ui-monospace,monospace;margin:0;min-height:100svh;}
+.term{background:#13131a;border:1px solid #2a2a35;border-radius:12px;}
+.kbd{background:#1f1f2a;border:1px solid #2a2a35;border-radius:6px;padding:2px 8px;font-size:11px;color:#a1a1aa;}
+.prompt-line{color:#86efac;}
+.chip{background:#1f1f2a;border:1px solid #2a2a35;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;color:#cbd5e1;}
+.chip:hover{background:#2a2a35;border-color:#a855f7;color:#fff;}
+</style>
+</head>
+<body>
+<header class="px-6 py-4 flex justify-between items-center border-b border-zinc-900">
+<div class="flex items-center gap-3">
+<span class="prompt-line">$</span>
+<span class="font-bold text-white">peopletrust</span>
+<span class="text-xs text-zinc-600">·  evaluación psicolaboral · multi-agente IA</span>
+</div>
+<div class="flex items-center gap-3">
+<a class="text-xs text-zinc-400 hover:text-white" href="#">docs</a>
+<a href="https://argos.vecttore.com" class="text-xs px-3 py-1.5 rounded-md bg-white text-black font-medium">login</a>
+</div>
+</header>
+
+<main class="max-w-3xl mx-auto px-6 py-10">
+<p class="text-xs text-violet-400 mb-2">// playground</p>
+<h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">Probá una mini-evaluación ahora.</h1>
+<p class="text-zinc-400 mb-8 text-sm">3 preguntas reales con Valentina · sin signup · resultado en 30 seg.</p>
+
+<div class="term mb-4">
+<div class="px-4 py-2.5 border-b border-zinc-900 flex items-center gap-2 text-xs text-zinc-500">
+<span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+<span class="ml-2">valentina · interactive demo</span>
+</div>
+<div id="chat" class="px-4 py-4 min-h-[260px] max-h-[40vh] overflow-y-auto text-sm leading-relaxed"></div>
+<form id="form" class="border-t border-zinc-900 px-3 py-2 flex items-center gap-2">
+<span class="prompt-line text-sm">&gt;</span>
+<input id="input" placeholder="escribí tu respuesta…" class="flex-1 bg-transparent outline-none px-2 py-2 text-sm text-white placeholder:text-zinc-600"/>
+<button type="submit" class="kbd">enter ↵</button>
+</form>
+</div>
+
+<p class="text-xs text-zinc-500 mb-3">// sample queries</p>
+<div class="flex flex-wrap gap-2 mb-12">
+<button class="chip" data-msg="cuánto cuesta">cuánto cuesta</button>
+<button class="chip" data-msg="evaluar candidato técnico">evaluar técnico</button>
+<button class="chip" data-msg="quiénes son ustedes">quiénes son</button>
+<button class="chip" data-msg="tengo turnover">tengo turnover</button>
+<button class="chip" data-msg="es seguro">es seguro?</button>
+</div>
+
+<div class="term p-6">
+<p class="text-xs text-violet-400 mb-3">// ready?</p>
+<a href="https://argos.vecttore.com" class="inline-block px-5 py-2.5 rounded-md bg-white text-black font-semibold text-sm">crear cuenta gratis →</a>
+<p class="text-xs text-zinc-500 mt-3">10 evaluaciones/mes · sin tarjeta</p>
+</div>
+</main>
+
+<script>
+const chat=document.getElementById('chat'),form=document.getElementById('form'),input=document.getElementById('input');
+function add(role,html){const w=document.createElement('div');w.className='mb-3';w.innerHTML=role==='user'?`<span class="prompt-line">›</span> <span class="text-white">${html}</span>`:`<span class="text-violet-400">valentina</span> <span class="text-zinc-300">${html}</span>`;chat.appendChild(w);chat.scrollTop=chat.scrollHeight;}
+function send(t){if(!t.trim())return;add('user',t);input.value='';setTimeout(()=>add('valentina',window.Valentina.reply(t)),500);}
+form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>send(c.dataset.msg)));
+// Seed
+setTimeout(()=>add('valentina','hola · soy valentina. ¿en qué te ayudo? podés probar los sample queries abajo ↓'),300);
+</script>
+</body></html>

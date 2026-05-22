@@ -17,6 +17,7 @@ const MAQUETAS: { label: string; src: string; title: string }[] = [
   { label: 'K', src: '/preview/K.html', title: 'K · combinada (J+H+G+A)' },
   { label: 'L', src: '/preview/L.html', title: 'L · Apple Vision + SF Pro + voz' },
   { label: 'M', src: '/preview/M.html', title: 'M · Valentina se arma · GSAP ScrollTrigger' },
+  { label: 'M²', src: '/preview/M-v2.html', title: 'M v2 · Apple Vision real · iPad-friendly sin scroll-jacking' },
 ]
 
 export default function HomePage() {
